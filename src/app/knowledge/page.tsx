@@ -173,10 +173,10 @@ function KnowledgeContent() {
         )}
 
         {/* Article list */}
-        <div className="mt-4 grid gap-3 sm:gap-4">
+        <div className="mt-4 grid items-stretch gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
           {loading
             ? Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="flex items-start gap-3.5 rounded-xl border border-gray-200 bg-white p-4 shadow-sm sm:p-5">
+                <div key={i} className="flex h-full items-start gap-3.5 rounded-xl border border-gray-200 bg-white p-4 shadow-sm sm:p-5">
                   <div className="h-9 w-9 animate-pulse rounded-lg bg-[color:var(--brand-soft)]" />
                   <div className="flex-1 space-y-2">
                     <div className="h-4 w-40 animate-pulse rounded bg-gray-100" />
