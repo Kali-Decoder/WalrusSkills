@@ -32,7 +32,7 @@ export function HeroSection() {
 
         <h1 className="mt-5 text-balance text-[1.75rem] font-bold leading-[1.15] tracking-[-0.03em] text-foreground sm:text-[2.5rem] md:text-[3rem] lg:text-[3.5rem]">
           Build Faster on{" "}
-          <span className="text-white">Walrus</span>. <br/>
+          <span className="text-teal">Walrus</span>. <br/>
           Powered by <span className="text-foreground/90">Sui</span>.
         </h1>
 

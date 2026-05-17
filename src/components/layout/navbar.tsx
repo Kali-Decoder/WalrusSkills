@@ -12,7 +12,6 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { Container } from "@/components/layout/container";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -61,30 +60,26 @@ export function Navbar() {
               </Button>
             </Link>
           ))}
-          <ThemeToggle />
         </nav>
 
         {/* Mobile nav */}
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild className="sm:hidden">
-            <div className="flex items-center gap-1">
-              <ThemeToggle />
-              <Button variant="ghost" size="icon" className="text-muted-foreground">
-                <svg
-                  className="h-5 w-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              </Button>
-            </div>
+            <Button variant="ghost" size="icon" className="text-muted-foreground">
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-64">
             <SheetTitle className="text-base font-bold text-foreground">
