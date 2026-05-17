@@ -6,15 +6,16 @@ import { ArrowUp, ChevronLeft } from "lucide-react";
 import { Container } from "@/components/layout/container";
 
 const SECTIONS = [
-  { id: "structure", label: "Structure" },
-  { id: "skill-md", label: "SKILL.md" },
-  { id: "readme-md", label: "README.md" },
-  { id: "tips", label: "Tips" },
+  { id: "marketplace", label: "Marketplace" },
+  { id: "skills", label: "Skills" },
+  { id: "templates", label: "Templates" },
+  { id: "knowledge", label: "Knowledge Base" },
+  { id: "contribute", label: "Contribute" },
 ];
 
 export default function TutorialPage() {
   const [showTop, setShowTop] = useState(false);
-  const [active, setActive] = useState("structure");
+  const [active, setActive] = useState("marketplace");
 
   useEffect(() => {
     function onScroll() {
@@ -73,140 +74,128 @@ export default function TutorialPage() {
       <Container>
         <div className="mx-auto max-w-3xl">
           <article className="py-8 sm:py-12">
-          <h1 className="text-xl font-bold tracking-[-0.02em] text-gray-900 sm:text-2xl">
-            Skill Folder Guide
-          </h1>
+            <h1 className="text-2xl font-bold tracking-[-0.03em] text-foreground sm:text-3xl">
+              Walrus Skills Marketplace Guide
+            </h1>
 
-          <p className="mt-3 text-sm leading-[1.7] text-gray-500 sm:text-[0.9rem]">
-            Each skill is a <strong className="text-gray-800">folder</strong> with{" "}
-            <Code>SKILL.md</Code> and <Code>README.md</Code>.
-            Compatible with Claude Code, Codex, and other agent platforms.
-          </p>
+            <p className="mt-3 text-sm leading-[1.7] text-muted-foreground sm:text-base">
+              Learn how to use the marketplace to install <strong className="text-foreground">skills</strong>, start from{" "}
+              <strong className="text-foreground">templates</strong>, and share <strong className="text-foreground">knowledge</strong> with your agent.
+            </p>
 
-          <div className="mt-6 h-px bg-gray-100 sm:mt-8" />
+            <div className="mt-6 h-px bg-[color:var(--brand-border)]/70 sm:mt-8" />
 
-          {/* Step 1 */}
-          <section id="structure" className="scroll-mt-28 mt-6 sm:mt-8">
-            <StepHeader num={1} title="Folder structure" />
-            <div className="pl-[34px]">
-              <p className="mt-2 text-sm text-gray-500 sm:text-[0.9rem]">
-                Create a folder for your skill inside your project&apos;s skills directory.
-              </p>
-              <CodeBlock>{`your-project/
-└── skills/
-    └── solidity-developer/
-        ├── SKILL.md      # Required — metadata + agent instructions
-        └── README.md     # Human-readable description`}</CodeBlock>
-            </div>
-          </section>
+            <section id="marketplace" className="scroll-mt-28 mt-6 sm:mt-8">
+              <SectionHeader title="How the marketplace works" />
+              <div className="pl-[34px]">
+                <p className="mt-2 text-sm text-muted-foreground sm:text-[0.95rem]">
+                  Walrus Skills Marketplace is file-based: skills, templates, and guides are packaged as folders/markdown that you can download and
+                  drop into your repo. The goal is to make agent onboarding fast and repeatable.
+                </p>
 
-          {/* Step 2 */}
-          <section id="skill-md" className="scroll-mt-28 mt-8 sm:mt-10">
-            <StepHeader num={2} title="Create SKILL.md" />
-            <div className="pl-[34px]">
-              <p className="mt-2 text-sm text-gray-500 sm:text-[0.9rem]">
-                Two parts: YAML frontmatter (metadata) and a markdown body (agent instructions).
-              </p>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {[
+                    { title: "Skills", body: "Agent-ready folders with SKILL.md (+ optional README.md)." },
+                    { title: "Templates", body: "Production-style starter patterns you can build on." },
+                    { title: "Knowledge Base", body: "Guides with URLs your agent can fetch on demand." },
+                    { title: "Collections", body: "Curated bundles to quickly install a set of skills." },
+                  ].map((c) => (
+                    <div key={c.title} className="surface p-4">
+                      <p className="text-sm font-semibold text-foreground">{c.title}</p>
+                      <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{c.body}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
 
-              <h3 className="mt-5 text-sm font-semibold text-gray-700 sm:text-[0.9rem]">Frontmatter</h3>
-              <p className="mt-1 text-sm text-gray-400">
-                <Code>name</Code> (lowercase, hyphens) and <Code>description</Code> (max 1024 chars) are required.
-              </p>
-              <CodeBlock>{`---
-name: solidity-developer
-description: Skill for agents building smart contracts on EVM-compatible chains.
-skills:
-  - Solidity
-  - Smart Contracts
-  - Foundry
-  - Hardhat
-  - OpenZeppelin
-  - EVM
----`}</CodeBlock>
+            <section id="skills" className="scroll-mt-28 mt-8 sm:mt-10">
+              <SectionHeader title="Install a skill" />
+              <div className="pl-[34px]">
+                <p className="mt-2 text-sm text-muted-foreground sm:text-[0.95rem]">
+                  Open a skill, review the preview, then download it and place the folder into your agent skills directory.
+                </p>
 
-              <h3 className="mt-5 text-sm font-semibold text-gray-700 sm:text-[0.9rem]">Body</h3>
-              <p className="mt-1 text-sm text-gray-400">
-                Instructions the agent should follow. Include when to use and when not to.
-              </p>
-              <CodeBlock>{`## Instructions
+                <CodeBlock>{`# 1) Download a skill from /browse
+# 2) Copy the folder into your project
+cp -r <skill-slug>/ .claude/skills/`}</CodeBlock>
 
-You are a Solidity smart contract developer agent specializing
-in EVM-compatible chains.
+                <p className="mt-3 text-sm text-muted-foreground sm:text-[0.95rem]">
+                  A skill is a folder that includes at minimum <Code>SKILL.md</Code> (agent instructions + metadata). Many also include{" "}
+                  <Code>README.md</Code> for humans.
+                </p>
 
-### Core Capabilities
+                <CodeBlock>{`<skill-slug>/
+├── SKILL.md
+└── README.md (optional)`}</CodeBlock>
+              </div>
+            </section>
 
-- **Smart contract development** — Solidity 0.8+, ERC standards
-- **Testing & tooling** — Foundry, Hardhat, fuzz/invariant testing
-- **Security** — Reentrancy, access control, OpenZeppelin, Slither
-- **Gas optimization** — Storage packing, Yul, batch operations
+            <section id="templates" className="scroll-mt-28 mt-8 sm:mt-10">
+              <SectionHeader title="Start from a template" />
+              <div className="pl-[34px]">
+                <p className="mt-2 text-sm text-muted-foreground sm:text-[0.95rem]">
+                  Templates are “starter app” skills. Use them when you want a ready-to-extend baseline for a Walrus/Sui app.
+                </p>
+                <p className="mt-3 text-sm text-muted-foreground sm:text-[0.95rem]">
+                  Recommended flow:
+                </p>
+                <ol className="mt-2 space-y-1.5 text-sm text-muted-foreground sm:text-[0.95rem]">
+                  {[
+                    "Pick a template from /templates",
+                    "Download it and drop it into .claude/skills/",
+                    "Ask your agent to adapt it to your project needs (UI, contract integration, storage flows).",
+                  ].map((t) => (
+                    <li key={t} className="flex gap-2">
+                      <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-[color:var(--brand-border)]" />
+                      <span>{t}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </section>
 
-### When to Use
+            <section id="knowledge" className="scroll-mt-28 mt-8 sm:mt-10">
+              <SectionHeader title="Use Knowledge Base with your agent" />
+              <div className="pl-[34px]">
+                <p className="mt-2 text-sm text-muted-foreground sm:text-[0.95rem]">
+                  Each Knowledge Base page provides an <strong className="text-foreground">Agent Fetch URL</strong>. Copy it and share it with your agent so it can
+                  pull the guide on demand.
+                </p>
+                <CodeBlock>{`# Example: add a guide into your repo as markdown
+curl -o walrus-guide.md https://<your-domain>/knowledge/<slug>/raw`}</CodeBlock>
+              </div>
+            </section>
 
-Writing, auditing, testing, or deploying Solidity contracts.
+            <section id="contribute" className="scroll-mt-28 mt-8 sm:mt-10">
+              <SectionHeader title="Contribute new skills" />
+              <div className="pl-[34px]">
+                <p className="mt-2 text-sm text-muted-foreground sm:text-[0.95rem]">
+                  Marketplace content is stored under <Code>src/data/</Code>. Add a folder and it shows up in the UI.
+                </p>
 
-### When NOT to Use
+                <CodeBlock>{`src/data/
+├── skills/<skill-slug>/
+├── templates/<template-slug>/
+└── knowledge-bases/<kb-slug>/`}</CodeBlock>
 
-Frontend, backend APIs, or non-contract work.`}</CodeBlock>
-            </div>
-          </section>
+                <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground sm:text-[0.95rem]">
+                  {[
+                    <>Use clear, specific <Code>description</Code> so agents load the right skill.</>,
+                    <>Keep instructions short; put long docs in <Code>references/</Code> when needed.</>,
+                    <>Prefer consistent naming: lowercase with hyphens (<Code>walrus-storage-uploader</Code>).</>,
+                    <>Test locally by running <Code>npm run dev</Code> and checking <Code>/browse</Code>.</>,
+                  ].map((text, i) => (
+                    <li key={i} className="flex gap-2">
+                      <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-[color:var(--brand-border)]" />
+                      <span>{text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
 
-          {/* Step 3 */}
-          <section id="readme-md" className="scroll-mt-28 mt-8 sm:mt-10">
-            <StepHeader num={3} title="Create README.md" />
-            <div className="pl-[34px]">
-              <p className="mt-2 text-sm text-gray-500 sm:text-[0.9rem]">
-                Human-readable description of the skill.
-              </p>
-              <CodeBlock>{`# Solidity Developer
-
-Skill template for smart contract development on EVM chains.
-
-## What This Skill Does
-
-Equips your agent with Solidity expertise — writing,
-testing, gas optimization, and security auditing.
-
-## Skills Covered
-
-- Solidity 0.8+, ERC-20/721/1155 token standards
-- Foundry and Hardhat tooling
-- Security patterns and static analysis
-
-## Ideal For
-
-Builders focused on the smart contract layer.
-
-## Installation
-
-Copy this folder into your project's skills directory.`}</CodeBlock>
-            </div>
-          </section>
-
-          {/* Tips */}
-          <section id="tips" className="scroll-mt-28 mt-8 sm:mt-10">
-            <div className="flex items-center gap-2.5">
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-100 text-[11px] font-bold text-gray-500">
-                ?
-              </span>
-              <h2 className="text-sm font-semibold text-gray-800 sm:text-[0.9rem]">Tips</h2>
-            </div>
-            <ul className="mt-4 space-y-2.5 pl-[34px] text-sm text-gray-500 sm:text-[0.9rem]">
-              {[
-                <>The <Code>description</Code> field determines when the agent loads your skill — make it specific.</>,
-                <>Keep SKILL.md under 500 lines. Heavy docs go in <Code>references/</Code>.</>,
-                <>4-8 skill tags for best discoverability.</>,
-                <>Lowercase names with hyphens: <Code>solidity-developer</Code>.</>,
-                <>Optional <Code>scripts/</Code> and <Code>assets/</Code> subfolders for helpers.</>,
-              ].map((text, i) => (
-                <li key={i} className="flex gap-2">
-                  <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-[color:var(--brand-border)]" />
-                  <span>{text}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <div className="h-8 sm:h-10" />
+            <div className="h-8 sm:h-10" />
           </article>
         </div>
       </Container>
@@ -224,11 +213,11 @@ Copy this folder into your project's skills directory.`}</CodeBlock>
   );
 }
 
-function StepHeader({ num, title }: { num: number; title: string }) {
+function SectionHeader({ title }: { title: string }) {
   return (
-    <h2 className="text-sm font-semibold text-gray-800 sm:text-[0.9rem]">
+    <h2 className="text-sm font-semibold text-foreground sm:text-[0.95rem]">
       <span className="mr-2.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-[color:var(--brand-soft)] text-[11px] font-bold text-foreground align-middle">
-        {num}
+        →
       </span>
       {title}
     </h2>
@@ -237,7 +226,7 @@ function StepHeader({ num, title }: { num: number; title: string }) {
 
 function CodeBlock({ children }: { children: string }) {
   return (
-    <pre className="mt-3 rounded-lg border border-gray-100 bg-gray-50/80 p-3.5 font-mono text-xs leading-[1.6] text-gray-600 overflow-x-auto sm:p-4 sm:text-[0.8rem]">
+    <pre className="mt-3 overflow-x-auto rounded-xl border border-[color:var(--brand-border)] bg-white/60 p-3.5 font-mono text-xs leading-[1.6] text-muted-foreground backdrop-blur sm:p-4 sm:text-[0.85rem]">
       <code>{children}</code>
     </pre>
   );

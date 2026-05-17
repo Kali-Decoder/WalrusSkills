@@ -26,7 +26,13 @@ export function HeroSection() {
       <Container className="relative py-12 text-center sm:py-16">
         <div className="mx-auto flex max-w-4xl flex-col items-center">
           <div className="chip">
-            <Image src="/logo.svg" alt="WalSkills" width={16} height={16} />
+            <Image
+              src="/landing.png"
+              alt="Walrus Skills Marketplace"
+              width={18}
+              height={18}
+              className="rounded object-contain"
+            />
             Walrus Skills Marketplace
           </div>
 

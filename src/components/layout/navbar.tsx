@@ -31,15 +31,14 @@ export function Navbar() {
       <Container className="flex h-14 items-center justify-between">
         <Link href="/" className="group flex items-center gap-1.5">
           <Image
-            src="/logo.svg"
-            alt="WalSkills"
-            width={24}
-            height={24}
+            src="/landing.png"
+            alt="Walrus Skills Marketplace"
+            width={108}
+            height={64}
             priority
+            className="rounded-md object-contain"
           />
-          <span className="text-sm font-bold text-foreground transition-colors group-hover:text-foreground">
-            WalSkills
-          </span>
+         
         </Link>
 
         {/* Desktop nav */}
