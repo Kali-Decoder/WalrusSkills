@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
+  <!-- Anvil base -->
+  <path d="M8 28h24v3a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-3Z" fill="#D97706"/>
+  <path d="M6 25h28a2 2 0 0 1 2 2v1H4v-1a2 2 0 0 1 2-2Z" fill="#F59E0B"/>
+  <!-- Anvil horn -->
+  <path d="M32 25h4a2 2 0 0 1 0 4h-4v-4Z" fill="#F59E0B"/>
+  <!-- Hammer -->
+  <path d="M17 6h6v10h-6z" rx="1" fill="#78716C"/>
+  <path d="M13 4h14a2 2 0 0 1 2 2v2H11V6a2 2 0 0 1 2-2Z" fill="#F59E0B"/>
+  <!-- Spark effects -->
+  <circle cx="12" cy="20" r="1.5" fill="#FBBF24" opacity="0.9"/>
+  <circle cx="28" cy="18" r="1" fill="#FCD34D" opacity="0.8"/>
+  <circle cx="15" cy="17" r="1" fill="#FDE68A" opacity="0.7"/>
+  <circle cx="25" cy="21" r="1.2" fill="#FBBF24" opacity="0.85"/>
+  <!-- Strike line -->
+  <path d="M20 16v9" stroke="#D97706" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 2"/>
+</svg>
