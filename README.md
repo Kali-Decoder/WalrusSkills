@@ -1,4 +1,5 @@
 # Walrus Skills Marketplace
+<img width="1231" height="812" alt="Screenshot 2026-05-18 at 10 49 55 PM" src="https://github.com/user-attachments/assets/fa269b0e-3f7f-4fc3-9282-1dd464e0ca37" />
 
 Walrus Skills Marketplace is a decentralized skill and template marketplace + developer hub for building on **Walrus** and the **Sui** ecosystem.
 
