@@ -19,10 +19,10 @@ const CARDS = [
 
 export function ValueProps() {
   return (
-    <section className="bg-[color:var(--background)] py-16">
+    <section className="safe-bottom bg-[color:var(--background)] py-12 sm:py-16">
       <Container>
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-balance text-2xl font-bold tracking-[-0.02em] text-foreground sm:text-3xl">
+          <h2 className="text-balance text-2xl font-bold text-foreground sm:text-3xl">
             Your developer hub for Walrus on Sui.
           </h2>
           <p className="mt-3 text-pretty text-sm leading-[1.7] text-muted-foreground sm:text-base">
@@ -38,7 +38,7 @@ export function ValueProps() {
               key={c.title}
               className="rounded-2xl border border-[color:var(--brand-border)] bg-white p-5 shadow-sm"
             >
-              <p className="text-sm font-semibold text-foreground">{c.title}</p>
+              <h3 className="text-sm font-semibold text-foreground">{c.title}</h3>
               <p className="mt-2 text-sm leading-[1.7] text-muted-foreground">
                 {c.desc}
               </p>

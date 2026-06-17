@@ -13,12 +13,15 @@ export function CopyCommand({ command }: { command: string }) {
   }
 
   return (
-    <div className="group flex items-center rounded-lg border border-gray-200 bg-gray-50 px-3 py-2">
-      <code className="flex-1 truncate font-mono text-xs text-gray-600">{command}</code>
+    <div className="group flex items-start gap-2 rounded-lg border border-[color:var(--brand-border)] bg-[color:var(--brand-soft)]/50 px-3 py-2">
+      <code className="min-w-0 flex-1 break-all font-mono text-xs leading-relaxed text-muted-foreground sm:text-[0.8rem]">
+        {command}
+      </code>
       <button
         onClick={handleCopy}
-        className="ml-2 shrink-0 text-gray-300 transition-colors hover:text-gray-900"
+        className="mt-0.5 shrink-0 text-muted-foreground/60 transition-colors hover:text-foreground"
         title="Copy to clipboard"
+        type="button"
       >
         {copied ? (
           <Check className="h-3.5 w-3.5 text-emerald-500" />

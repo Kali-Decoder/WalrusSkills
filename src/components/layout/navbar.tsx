@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -12,12 +11,13 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { Container } from "@/components/layout/container";
+import { BrandLogo } from "@/components/shared/brand-logo";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
   { href: "/get-started", label: "Get Started" },
   { href: "/browse", label: "Skills" },
-  { href: "/templates", label: "Templates.md" },
+  { href: "/templates", label: "Templates" },
   { href: "/knowledge", label: "Knowledge" },
   { href: "/tutorial", label: "Guide" },
 ];
@@ -28,21 +28,17 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-[color:var(--brand-border)] bg-[rgb(var(--bg-mint-rgb)/0.92)] backdrop-blur-md">
-      <Container className="flex h-14 items-center justify-between">
-        <Link href="/" className="group flex items-center gap-1.5">
-          <Image
-            src="/landing.png"
-            alt="Walrus Skills Marketplace"
-            width={108}
-            height={64}
+      <Container className="flex h-14 items-center justify-between gap-3">
+        <Link href="/" className="group flex min-w-0 items-center">
+          <BrandLogo
             priority
-            className="rounded-md object-contain"
+            sizes="136px"
+            className="h-8 max-h-8 w-auto sm:h-9 sm:max-h-9"
           />
-         
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-1 sm:flex">
+        <nav className="hidden items-center gap-0.5 md:flex">
           {navLinks.map((link) => (
             <Link key={link.href} href={link.href}>
               <Button
@@ -51,8 +47,8 @@ export function Navbar() {
                 className={cn(
                   "text-sm",
                   pathname === link.href
-                    ? "bg-[color:var(--brand-soft)] text-foreground font-semibold"
-                    : "text-muted-foreground hover:text-foreground hover:bg-[color:var(--brand-soft)]/60"
+                    ? "bg-[color:var(--brand-soft)] font-semibold text-foreground"
+                    : "text-muted-foreground hover:bg-[color:var(--brand-soft)]/60 hover:text-foreground"
                 )}
               >
                 {link.label}
@@ -63,8 +59,13 @@ export function Navbar() {
 
         {/* Mobile nav */}
         <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger asChild className="sm:hidden">
-            <Button variant="ghost" size="icon" className="text-muted-foreground">
+          <SheetTrigger asChild className="md:hidden">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="shrink-0 text-muted-foreground"
+              aria-label="Open menu"
+            >
               <svg
                 className="h-5 w-5"
                 fill="none"
@@ -80,7 +81,7 @@ export function Navbar() {
               </svg>
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-64">
+          <SheetContent side="right" className="w-[min(100vw-2rem,18rem)]">
             <SheetTitle className="text-base font-bold text-foreground">
               Menu
             </SheetTitle>
@@ -94,7 +95,7 @@ export function Navbar() {
                   <Button
                     variant={pathname === link.href ? "secondary" : "ghost"}
                     className={cn(
-                      "w-full justify-start",
+                      "h-11 w-full justify-start",
                       pathname === link.href
                         ? "bg-[color:var(--brand-soft)] text-foreground"
                         : "text-muted-foreground"

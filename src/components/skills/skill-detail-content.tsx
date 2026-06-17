@@ -87,7 +87,7 @@ export function SkillDetailContent({ profile }: { profile: SkillProfile }) {
 
           {/* Sidebar */}
           <div className="w-full shrink-0 lg:w-72">
-            <div className="sticky top-20 space-y-4">
+            <div className="sticky top-[calc(var(--header-height)+1.5rem)] space-y-4">
               {/* Download button */}
               <button
                 onClick={handleDownload}

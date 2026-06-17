@@ -11,7 +11,7 @@ import { type Collection } from "@/lib/collections";
 import { CollectionCard } from "@/components/skills/collection-card";
 import { Search, X } from "lucide-react";
 import { fuzzyScore, bestMatch } from "@/lib/search";
-import { Container } from "@/components/layout/container";
+import { Container, ScrollBleed } from "@/components/layout/container";
 
 export default function BrowsePage() {
   return (
@@ -162,7 +162,7 @@ function BrowseContent() {
         </div>
 
         {/* Category tabs */}
-        <div className="mt-4 flex gap-1 max-sm:overflow-x-auto max-sm:pb-2 max-sm:-mx-5 max-sm:px-5 sm:mt-5 sm:flex-wrap">
+        <ScrollBleed className="mt-4 flex gap-1 sm:mt-5 sm:flex-wrap sm:overflow-visible sm:pb-0">
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
@@ -176,11 +176,11 @@ function BrowseContent() {
               {cat}
             </button>
           ))}
-        </div>
+        </ScrollBleed>
 
         {/* Tag sub-filters */}
         {allTags.length > 0 && (
-          <div className="mt-3 flex gap-1.5 max-sm:overflow-x-auto max-sm:pb-2 max-sm:-mx-5 max-sm:px-5 sm:flex-wrap">
+          <ScrollBleed className="mt-3 flex gap-1.5 sm:flex-wrap sm:overflow-visible sm:pb-0">
             {visibleTags.map((tag) => (
               <button
                 key={tag}
@@ -197,12 +197,12 @@ function BrowseContent() {
             {hiddenCount > 0 && (
               <button
                 onClick={() => setShowAllTags(!showAllTags)}
-                className="hidden shrink-0 rounded-full border border-dashed border-[color:var(--brand-border)] bg-white/40 px-2.5 py-1 text-[10px] font-medium text-muted-foreground transition-all hover:text-foreground sm:inline-flex sm:text-[11px]"
+                className="inline-flex shrink-0 rounded-full border border-dashed border-[color:var(--brand-border)] bg-white/40 px-2.5 py-1 text-[10px] font-medium text-muted-foreground transition-all hover:text-foreground sm:text-[11px]"
               >
                 {showAllTags ? "Show less" : `+${hiddenCount} more`}
               </button>
             )}
-          </div>
+          </ScrollBleed>
         )}
 
         {/* Collections */}
@@ -211,7 +211,7 @@ function BrowseContent() {
             <p className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground sm:text-xs">
               Curated Collections
             </p>
-            <div className="flex gap-3 overflow-x-auto pb-2 -mx-5 px-5 sm:-mx-8 sm:px-8">
+            <ScrollBleed className="flex gap-3">
               {collections.map((c) => (
                 <CollectionCard
                   key={c.id}
@@ -220,7 +220,7 @@ function BrowseContent() {
                   active={false}
                 />
               ))}
-            </div>
+            </ScrollBleed>
           </div>
         )}
 

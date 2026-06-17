@@ -7,6 +7,7 @@ export interface TemplateProfile {
   skillMd: string;
   meta: {
     name: string;
+    displayName: string;
     description: string;
     category: string;
     difficulty: string;
@@ -18,30 +19,105 @@ export interface TemplateProfile {
 
 const TEMPLATES_DIR = path.join(process.cwd(), "src/data/templates");
 
+function extractSection(body: string, heading: string): string | null {
+  const pattern = new RegExp(`# ${heading}\\s*\\n([\\s\\S]*?)(?=\\n# |$)`);
+  return body.match(pattern)?.[1]?.trim() ?? null;
+}
+
+function formatDisplayName(slug: string, name?: string): string {
+  const raw = name?.trim() || slug;
+  return raw
+    .split(/[-_]/)
+    .filter(Boolean)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
+function inferCategory(slug: string, meta: Record<string, unknown>): string {
+  if (typeof meta.category === "string" && meta.category.trim()) {
+    return meta.category;
+  }
+
+  const slugLower = slug.toLowerCase();
+  if (slugLower.includes("move")) return "Move";
+  if (slugLower.includes("python")) return "Python";
+  if (slugLower.includes("javascript") || slugLower.includes("typescript")) {
+    return "JavaScript / TypeScript";
+  }
+  return "Walrus Template";
+}
+
+function looksLikeFilePath(value: string): boolean {
+  const trimmed = value.trim();
+  if (!trimmed || trimmed.includes(" ") || trimmed.includes("://")) return false;
+  if (trimmed.startsWith("http")) return false;
+  if (/\.[a-z0-9]{1,6}$/i.test(trimmed)) return true;
+  return trimmed.includes("/") && !trimmed.startsWith("/v1/");
+}
+
+function inferSkillsFromBody(body: string): string[] {
+  const stackSection = extractSection(body, "Stack");
+  if (stackSection) {
+    const fromBullets = stackSection
+      .split("\n")
+      .map((line) => line.match(/^-\s+(.+)$/)?.[1]?.trim())
+      .filter((line): line is string => Boolean(line));
+    if (fromBullets.length > 0) return fromBullets.slice(0, 8);
+  }
+
+  const hints = [
+    "React",
+    "TypeScript",
+    "JavaScript",
+    "Move",
+    "Python",
+    "Vite",
+    "TailwindCSS",
+    "Walrus",
+    "Sui",
+    "Solidity",
+  ];
+  return hints.filter((hint) => body.toLowerCase().includes(hint.toLowerCase())).slice(0, 6);
+}
+
+function inferFilesFromBody(body: string): string[] {
+  const files = new Set<string>(["SKILL.md"]);
+  const repoMap = extractSection(body, "Repo Map");
+
+  const sources = repoMap ? [repoMap] : [body];
+  for (const source of sources) {
+    for (const match of source.matchAll(/`([^`]+)`/g)) {
+      const candidate = match[1].trim();
+      if (looksLikeFilePath(candidate)) files.add(candidate);
+    }
+  }
+
+  return Array.from(files).slice(0, 6);
+}
+
 function inferTemplateMeta(slug: string, meta: Record<string, unknown>, body: string) {
   const skills = Array.isArray(meta.skills) ? (meta.skills as string[]) : [];
-  const category = (meta.category as string) || "App Template";
-  const difficulty = (meta.difficulty as string) || "intermediate";
+  const name = (meta.name as string) || slug;
 
   return {
-    name: (meta.name as string) || slug,
+    name,
+    displayName: formatDisplayName(slug, name),
     description: (meta.description as string) || "",
-    category,
-    difficulty,
+    category: inferCategory(slug, meta),
+    difficulty: (meta.difficulty as string) || "intermediate",
     skills: skills.length > 0 ? skills : inferSkillsFromBody(body),
   };
 }
 
-function inferSkillsFromBody(body: string): string[] {
-  const hints = ["Monad", "Pyth", "Hardhat", "Wagmi", "ConnectKit", "VRF", "Solidity"];
-  return hints.filter((h) => body.toLowerCase().includes(h.toLowerCase()));
-}
-
-function inferFilesFromBody(body: string): string[] {
-  const matches = Array.from(body.matchAll(/`([^`]+)`/g)).map((m) => m[1]);
-  const normalized = matches.filter((m) => m.includes("/") || m.includes("."));
-  const unique = Array.from(new Set(["SKILL.md", ...normalized]));
-  return unique.slice(0, 8);
+function readTemplateSkillMd(dirName: string): string | null {
+  const candidates = ["SKILL.md", "Skill.md", "skill.md"];
+  for (const fileName of candidates) {
+    const skillPath = path.join(TEMPLATES_DIR, dirName, fileName);
+    if (fs.existsSync(skillPath)) {
+      return fs.readFileSync(skillPath, "utf-8");
+    }
+  }
+  return null;
 }
 
 export function getTemplateProfiles(): TemplateProfile[] {
@@ -52,10 +128,9 @@ export function getTemplateProfiles(): TemplateProfile[] {
 
   return folders
     .map((folder) => {
-      const skillPath = path.join(TEMPLATES_DIR, folder.name, "SKILL.md");
-      if (!fs.existsSync(skillPath)) return null;
+      const skillMd = readTemplateSkillMd(folder.name);
+      if (!skillMd) return null;
 
-      const skillMd = fs.readFileSync(skillPath, "utf-8");
       const { meta, body } = parseFrontmatter(skillMd);
       const inferred = inferTemplateMeta(folder.name, meta, body);
 
@@ -71,10 +146,9 @@ export function getTemplateProfiles(): TemplateProfile[] {
 }
 
 export function getTemplateProfile(slug: string): TemplateProfile | null {
-  const skillPath = path.join(TEMPLATES_DIR, slug, "SKILL.md");
-  if (!fs.existsSync(skillPath)) return null;
+  const skillMd = readTemplateSkillMd(slug);
+  if (!skillMd) return null;
 
-  const skillMd = fs.readFileSync(skillPath, "utf-8");
   const { meta, body } = parseFrontmatter(skillMd);
 
   return {

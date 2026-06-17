@@ -160,7 +160,7 @@ export default function GetStartedPage() {
 
           {/* Right: preview */}
           <aside className="w-full shrink-0 lg:w-[360px]">
-            <div className="surface sticky top-20 p-5">
+            <div className="surface sticky top-[calc(var(--header-height)+1.5rem)] p-5">
               <div className="flex items-center gap-2">
                 <Sparkles className="h-4 w-4 text-foreground/80" />
                 <p className="text-sm font-semibold text-foreground">Your setup</p>

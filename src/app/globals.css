@@ -10,6 +10,7 @@
   --color-foreground: var(--foreground);
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
     Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-pixel: var(--font-pixelify), ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
   --color-sidebar-ring: var(--sidebar-ring);
@@ -51,6 +52,7 @@
 }
 
 :root {
+  --header-height: 3.5rem;
   --radius: 0.625rem;
   /* Sleek monochrome palette */
   --bg-mint-rgb: 255 255 255;
@@ -171,6 +173,19 @@
   }
   .chip {
     @apply inline-flex items-center gap-1 rounded-full border border-[color:var(--brand-border)] bg-white/55 px-3 py-1 text-[11px] font-semibold text-foreground/80 backdrop-blur;
+  }
+  .scroll-bleed {
+    @apply -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8;
+  }
+  .safe-bottom {
+    padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+  }
+  .safe-fixed-bottom {
+    bottom: max(1.5rem, env(safe-area-inset-bottom));
+  }
+  .landing-page :is(h1, h2, h3) {
+    font-family: var(--font-pixel), ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: 0.01em;
   }
 }
 

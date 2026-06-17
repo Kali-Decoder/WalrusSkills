@@ -74,7 +74,7 @@ export function KBDetailContent({ kb }: { kb: KnowledgeBase }) {
                 <span className="text-sm font-medium text-foreground">KB.md</span>
               </div>
               <div className="p-5 sm:p-6">
-                <div className="prose prose-sm prose-gray max-w-none overflow-hidden prose-headings:text-gray-900 prose-p:text-gray-600 prose-li:text-gray-600 prose-strong:text-gray-700 prose-code:rounded prose-code:bg-[color:var(--brand-soft)] prose-code:px-1.5 prose-code:py-0.5 prose-code:text-gray-900 prose-code:font-semibold prose-code:before:content-none prose-code:after:content-none prose-pre:overflow-x-auto prose-pre:bg-gray-50 prose-pre:border prose-pre:border-[color:var(--brand-border)] prose-th:text-gray-700 prose-td:text-gray-600">
+                <div className="prose prose-sm prose-gray max-w-none overflow-hidden prose-headings:text-foreground prose-p:text-muted-foreground prose-li:text-muted-foreground prose-strong:text-foreground prose-code:rounded prose-code:bg-[color:var(--brand-soft)] prose-code:px-1.5 prose-code:py-0.5 prose-code:text-foreground prose-code:font-semibold prose-code:before:content-none prose-code:after:content-none prose-pre:overflow-x-auto prose-pre:bg-white/70 prose-pre:border prose-pre:border-[color:var(--brand-border)] prose-th:text-foreground prose-td:text-muted-foreground">
                   <Markdown remarkPlugins={[remarkGfm]}>{kb.body}</Markdown>
                 </div>
               </div>
@@ -83,7 +83,7 @@ export function KBDetailContent({ kb }: { kb: KnowledgeBase }) {
 
           {/* Sidebar */}
           <div className="w-full shrink-0 lg:w-72">
-            <div className="sticky top-20 space-y-4">
+            <div className="sticky top-[calc(var(--header-height)+1.5rem)] space-y-4">
               {/* Agent URL — primary action */}
               <div className="surface p-4">
                 <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-foreground/70">
@@ -115,7 +115,7 @@ export function KBDetailContent({ kb }: { kb: KnowledgeBase }) {
 
               {/* Install command */}
               <div>
-                <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-gray-400">
+                <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
                   Add to project
                 </p>
                 <CopyCommand command={`curl -o ${kb.slug}.md ${rawUrl}`} />
@@ -141,8 +141,8 @@ export function KBDetailContent({ kb }: { kb: KnowledgeBase }) {
                 </dl>
 
                 {kb.meta.tags.length > 0 && (
-                  <div className="mt-4 border-t border-gray-100 pt-4">
-                    <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-gray-400">
+                  <div className="mt-4 border-t border-[color:var(--brand-border)] pt-4">
+                    <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
                       Tags
                     </p>
                     <div className="flex flex-wrap gap-1.5">
@@ -161,7 +161,7 @@ export function KBDetailContent({ kb }: { kb: KnowledgeBase }) {
 
               {/* Files */}
               <div className="surface p-4">
-                <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-gray-400">
+                <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
                   File
                 </p>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">

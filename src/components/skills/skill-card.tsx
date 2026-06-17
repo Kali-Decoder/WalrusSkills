@@ -91,8 +91,8 @@ export function SkillCard({ profile }: { profile: SkillProfile }) {
       </div>
 
       {/* Actions bar */}
-      <div className="flex items-center border-t border-[color:var(--brand-border)] px-4 py-2 sm:px-5">
-        <div className="flex flex-1 gap-1">
+      <div className="flex flex-wrap items-center gap-1 border-t border-[color:var(--brand-border)] px-4 py-2 sm:flex-nowrap sm:px-5">
+        <div className="flex flex-1 flex-wrap gap-1">
           <button
             onClick={handleCopy}
             className="flex h-7 items-center gap-1.5 rounded-md px-2 text-[11px] font-medium text-muted-foreground transition-all hover:bg-[color:var(--brand-soft)] hover:text-foreground"

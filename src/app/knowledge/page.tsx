@@ -7,7 +7,7 @@ import { KB_CATEGORIES } from "@/lib/kb-constants";
 import { KBCard } from "@/components/knowledge/kb-card";
 import { fuzzyScore } from "@/lib/search";
 import { Search, X, BookOpen, Code2, Wallet, Server } from "lucide-react";
-import { Container } from "@/components/layout/container";
+import { Container, ScrollBleed } from "@/components/layout/container";
 
 const CATEGORY_ICONS: Record<string, React.ElementType> = {
   "Blockchain Fundamentals": BookOpen,
@@ -101,10 +101,10 @@ function KnowledgeContent() {
             value={search}
             onChange={(e) => { setSearch(e.target.value); updateURL(e.target.value, activeCategory); }}
             placeholder="Search guides..."
-            className="h-9 w-full rounded-lg border border-gray-200 bg-white/70 pl-9 pr-14 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none backdrop-blur transition-all focus:bg-white focus:border-[color:var(--brand-border)] focus:ring-2 focus:ring-[color:var(--brand-soft)]"
+            className="h-9 w-full rounded-lg border border-[color:var(--brand-border)] bg-white/70 pl-9 pr-14 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none backdrop-blur transition-all focus:bg-white focus:border-[color:var(--brand-border)] focus:ring-2 focus:ring-[color:var(--brand-soft)]"
           />
           {!search && (
-            <kbd className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 rounded border border-gray-200 bg-gray-50 px-1.5 py-0.5 text-[10px] font-medium text-gray-400">
+            <kbd className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 rounded border border-[color:var(--brand-border)] bg-[color:var(--brand-soft)] px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
               /
             </kbd>
           )}
@@ -145,7 +145,7 @@ function KnowledgeContent() {
 
         {/* Category tabs (when filtering or searching) */}
         {(search || activeCategory !== "All") && (
-          <div className="mt-6 flex gap-1 max-sm:overflow-x-auto max-sm:pb-2 sm:flex-wrap">
+          <ScrollBleed className="mt-6 flex gap-1 sm:flex-wrap sm:overflow-visible sm:pb-0">
             {KB_CATEGORIES.map((cat) => (
               <button
                 key={cat}
@@ -159,7 +159,7 @@ function KnowledgeContent() {
                 {cat}
               </button>
             ))}
-          </div>
+          </ScrollBleed>
         )}
 
         {/* Results count */}
@@ -176,12 +176,12 @@ function KnowledgeContent() {
         <div className="mt-4 grid items-stretch gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
           {loading
             ? Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="flex h-full items-start gap-3.5 rounded-xl border border-gray-200 bg-white p-4 shadow-sm sm:p-5">
+                <div key={i} className="surface flex h-full items-start gap-3.5 p-4 sm:p-5">
                   <div className="h-9 w-9 animate-pulse rounded-lg bg-[color:var(--brand-soft)]" />
                   <div className="flex-1 space-y-2">
-                    <div className="h-4 w-40 animate-pulse rounded bg-gray-100" />
-                    <div className="h-3 w-full animate-pulse rounded bg-gray-50" />
-                    <div className="h-3 w-2/3 animate-pulse rounded bg-gray-50" />
+                    <div className="h-4 w-40 animate-pulse rounded bg-black/5" />
+                    <div className="h-3 w-full animate-pulse rounded bg-black/5" />
+                    <div className="h-3 w-2/3 animate-pulse rounded bg-black/5" />
                   </div>
                 </div>
               ))

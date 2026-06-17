@@ -43,17 +43,18 @@ export default function TutorialPage() {
 
   return (
     <div className="relative">
-      <div className="sticky top-14 z-20 border-b border-gray-100 bg-white/70 backdrop-blur-md">
+      <div className="sticky top-[var(--header-height)] z-20 border-b border-[color:var(--brand-border)] bg-white/70 backdrop-blur-md">
         <Container className="flex items-center py-2">
           <Link
             href="/browse"
-            className="mr-3 flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+            className="mr-3 flex shrink-0 items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
           >
             <ChevronLeft className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Back</span>
           </Link>
-          <div className="h-4 w-px bg-gray-200" />
-          <div className="flex gap-1 overflow-x-auto pl-3">
+          <div className="h-4 w-px shrink-0 bg-[color:var(--brand-border)]" />
+          <div className="min-w-0 flex-1 overflow-x-auto">
+            <div className="flex gap-1 pl-3">
             {SECTIONS.map((s) => (
               <a
                 key={s.id}
@@ -67,6 +68,7 @@ export default function TutorialPage() {
                 {s.label}
               </a>
             ))}
+            </div>
           </div>
         </Container>
       </div>
@@ -85,7 +87,7 @@ export default function TutorialPage() {
 
             <div className="mt-6 h-px bg-[color:var(--brand-border)]/70 sm:mt-8" />
 
-            <section id="marketplace" className="scroll-mt-28 mt-6 sm:mt-8">
+            <section id="marketplace" className="scroll-mt-[calc(var(--header-height)+4.5rem)] mt-6 sm:mt-8">
               <SectionHeader title="How the marketplace works" />
               <div className="pl-[34px]">
                 <p className="mt-2 text-sm text-muted-foreground sm:text-[0.95rem]">
@@ -109,7 +111,7 @@ export default function TutorialPage() {
               </div>
             </section>
 
-            <section id="skills" className="scroll-mt-28 mt-8 sm:mt-10">
+            <section id="skills" className="scroll-mt-[calc(var(--header-height)+4.5rem)] mt-8 sm:mt-10">
               <SectionHeader title="Install a skill" />
               <div className="pl-[34px]">
                 <p className="mt-2 text-sm text-muted-foreground sm:text-[0.95rem]">
@@ -131,7 +133,7 @@ cp -r <skill-slug>/ .claude/skills/`}</CodeBlock>
               </div>
             </section>
 
-            <section id="templates" className="scroll-mt-28 mt-8 sm:mt-10">
+            <section id="templates" className="scroll-mt-[calc(var(--header-height)+4.5rem)] mt-8 sm:mt-10">
               <SectionHeader title="Start from a template" />
               <div className="pl-[34px]">
                 <p className="mt-2 text-sm text-muted-foreground sm:text-[0.95rem]">
@@ -155,7 +157,7 @@ cp -r <skill-slug>/ .claude/skills/`}</CodeBlock>
               </div>
             </section>
 
-            <section id="knowledge" className="scroll-mt-28 mt-8 sm:mt-10">
+            <section id="knowledge" className="scroll-mt-[calc(var(--header-height)+4.5rem)] mt-8 sm:mt-10">
               <SectionHeader title="Use Knowledge Base with your agent" />
               <div className="pl-[34px]">
                 <p className="mt-2 text-sm text-muted-foreground sm:text-[0.95rem]">
@@ -167,7 +169,7 @@ curl -o walrus-guide.md https://<your-domain>/knowledge/<slug>/raw`}</CodeBlock>
               </div>
             </section>
 
-            <section id="contribute" className="scroll-mt-28 mt-8 sm:mt-10">
+            <section id="contribute" className="scroll-mt-[calc(var(--header-height)+4.5rem)] mt-8 sm:mt-10">
               <SectionHeader title="Contribute new skills" />
               <div className="pl-[34px]">
                 <p className="mt-2 text-sm text-muted-foreground sm:text-[0.95rem]">
@@ -204,7 +206,7 @@ curl -o walrus-guide.md https://<your-domain>/knowledge/<slug>/raw`}</CodeBlock>
       {showTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-6 right-6 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--brand-border)] bg-white/70 text-muted-foreground shadow-lg backdrop-blur transition-all hover:text-foreground"
+          className="safe-fixed-bottom fixed right-4 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--brand-border)] bg-white/70 text-muted-foreground shadow-lg backdrop-blur transition-all hover:text-foreground sm:right-6"
         >
           <ArrowUp className="h-3.5 w-3.5" />
         </button>
