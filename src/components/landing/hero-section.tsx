@@ -30,19 +30,19 @@ export function HeroSection() {
             Walrus Skills Marketplace
           </div>
 
-          <h1 className="mt-5 text-balance text-[1.75rem] font-bold leading-[1.2] text-foreground sm:text-[2.5rem] md:text-[3rem] lg:text-[3.5rem]">
+          <h1 className="text-animate-in mt-5 text-balance text-[1.75rem] font-bold leading-[1.2] text-foreground sm:text-[2.5rem] md:text-[3rem] lg:text-[3.5rem]">
             Build Faster on{" "}
-            <span className="text-foreground">Walrus</span>. Powered by{" "}
+            <span className="text-shimmer">Walrus</span>. Powered by{" "}
             <span className="text-foreground/90">Sui</span>.
           </h1>
 
-          <p className="mt-5 max-w-2xl text-pretty text-[0.95rem] leading-[1.7] text-muted-foreground sm:mt-6 sm:text-base">
+          <p className="text-animate-in text-animate-delay-1 mt-5 max-w-2xl text-pretty text-[0.95rem] leading-[1.7] text-muted-foreground sm:mt-6 sm:text-base">
             Walrus Skills is a decentralized skills marketplace and developer hub
             designed to help builders quickly create products on top of Walrus and
             the Sui ecosystem.
           </p>
 
-          <p className="mt-4 max-w-2xl text-pretty text-[0.95rem] leading-[1.7] text-muted-foreground sm:text-base">
+          <p className="text-animate-in text-animate-delay-2 mt-4 max-w-2xl text-pretty text-[0.95rem] leading-[1.7] text-muted-foreground sm:text-base">
             Discover, share, and integrate reusable skills, workflows, AI prompts,
             SDK examples, APIs, templates, and infrastructure modules without
             starting from scratch.
