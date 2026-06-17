@@ -3,59 +3,58 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
-  Coins,
-  Gamepad2,
-  Image,
+  Layers,
   Server,
   Compass,
   ChevronRight,
   CheckCircle2,
   Sparkles,
   ArrowRight,
+  Rocket,
 } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { PageHeader } from "@/components/shared/page-header";
 
 const PATHS = [
   {
-    id: "defi",
-    label: "Protocols",
-    desc: "Apps, markets, on-chain logic",
-    icon: Coins,
-    collection: "first-defi",
-    skills: ["solidity-developer", "defi-protocol", "fullstack-web3-dev"],
+    id: "walrus-sites",
+    label: "Walrus Sites",
+    desc: "Deploy and host decentralized sites",
+    icon: Layers,
+    collection: "walrus-sites",
+    skills: ["deploy-walrus-site", "walrus-site-configuration", "linking-walrus-sites-external-urls"],
   },
   {
-    id: "gaming",
-    label: "Consumer",
-    desc: "Games, social, experiences",
-    icon: Gamepad2,
-    collection: "p2p-game",
-    skills: ["solidity-developer", "p2p-gaming", "ui-ux-designer"],
-  },
-  {
-    id: "nfts",
-    label: "Assets",
-    desc: "Collections, metadata, media",
-    icon: Image,
-    collection: null,
-    skills: ["solidity-developer", "nft-collection", "fullstack-web3-dev"],
-  },
-  {
-    id: "infra",
-    label: "Infra",
-    desc: "Deployments, tooling, ops",
+    id: "local-portal",
+    label: "Local Portal",
+    desc: "Browse Testnet sites on your machine",
     icon: Server,
-    collection: null,
-    skills: ["solidity-developer", "token-deployer", "fullstack-web3-dev"],
+    collection: "walrus-starter",
+    skills: ["deploy-walrus-site", "deploy-local-portal", "walrus-site-configuration"],
+  },
+  {
+    id: "ship-app",
+    label: "Ship an App",
+    desc: "Full-stack UI with Walrus storage",
+    icon: Rocket,
+    collection: "ship-on-walrus",
+    skills: ["fullstack-web3-dev", "ui-ux-designer", "deploy-walrus-site"],
+  },
+  {
+    id: "foundations",
+    label: "Walrus Foundations",
+    desc: "Architecture, config, and linking",
+    icon: Compass,
+    collection: "walrus-architecture",
+    skills: ["techincal-architecture-overview", "walrus-site-configuration", "linking-walrus-sites-external-urls"],
   },
   {
     id: "explore",
     label: "Exploring",
-    desc: "Just browsing, show me everything",
+    desc: "Just browsing — show me everything",
     icon: Compass,
-    collection: "starter-pack",
-    skills: ["solidity-developer", "fullstack-web3-dev", "ui-ux-designer"],
+    collection: "walrus-starter",
+    skills: ["deploy-walrus-site", "deploy-local-portal", "walrus-site-configuration"],
   },
 ];
 
@@ -230,7 +229,11 @@ export default function GetStartedPage() {
 
                   <div className="mt-5 flex flex-col gap-2">
                     <Link
-                      href={`/browse?category=${selectedPath.label === "Exploring" ? "All" : selectedPath.label}`}
+                      href={
+                        selectedPath.collection
+                          ? `/browse?collection=${selectedPath.collection}`
+                          : "/browse"
+                      }
                       className="inline-flex h-10 items-center justify-center rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-md"
                     >
                       Browse these skills

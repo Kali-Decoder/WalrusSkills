@@ -31,14 +31,22 @@ function BrowseContent() {
   const [activeTag, setActiveTag] = useState<string | null>(searchParams.get("tag") || null);
   const [showAllTags, setShowAllTags] = useState(false);
   const [collections, setCollections] = useState<Collection[]>([]);
-  const [activeCollection, setActiveCollection] = useState<string[]>([]);
+  const [activeCollectionId, setActiveCollectionId] = useState<string | null>(
+    searchParams.get("collection") || null
+  );
   const searchRef = useRef<HTMLInputElement>(null);
 
-  const updateURL = useCallback((q: string, category: string, tag: string | null) => {
+  const activeCollection = useMemo(
+    () => collections.find((c) => c.id === activeCollectionId) ?? null,
+    [collections, activeCollectionId]
+  );
+
+  const updateURL = useCallback((q: string, category: string, tag: string | null, collection: string | null) => {
     const params = new URLSearchParams();
     if (q) params.set("q", q);
     if (category !== "All") params.set("category", category);
     if (tag) params.set("tag", tag);
+    if (collection) params.set("collection", collection);
     const qs = params.toString();
     router.replace(qs ? `/browse?${qs}` : "/browse", { scroll: false });
   }, [router]);
@@ -80,8 +88,8 @@ function BrowseContent() {
 
   const filtered = useMemo(() => {
     return profiles.filter((p) => {
-      if (activeCollection.length > 0) {
-        return activeCollection.includes(p.slug);
+      if (activeCollection) {
+        return activeCollection.skillSlugs.includes(p.slug);
       }
       const matchCategory = activeCategory === "All" || p.meta.category === activeCategory;
       const q = search.toLowerCase();
@@ -100,7 +108,14 @@ function BrowseContent() {
     setActiveCategory(cat);
     setActiveTag(null);
     setShowAllTags(false);
-    updateURL(search, cat, null);
+    setActiveCollectionId(null);
+    updateURL(search, cat, null, null);
+  }
+
+  function handleCollectionSelect(collection: Collection) {
+    const nextId = activeCollectionId === collection.id ? null : collection.id;
+    setActiveCollectionId(nextId);
+    updateURL(search, activeCategory, activeTag, nextId);
   }
 
   return (
@@ -141,7 +156,7 @@ function BrowseContent() {
               ref={searchRef}
               type="text"
               value={search}
-              onChange={(e) => { setSearch(e.target.value); updateURL(e.target.value, activeCategory, activeTag); }}
+              onChange={(e) => { setSearch(e.target.value); updateURL(e.target.value, activeCategory, activeTag, activeCollectionId); }}
               placeholder="Search..."
               className="h-9 w-full rounded-lg border border-[color:var(--brand-border)] bg-white/70 pl-9 pr-14 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none backdrop-blur transition-all focus:bg-white focus:border-[color:var(--brand-border)] focus:ring-2 focus:ring-[color:var(--brand-soft)]"
             />
@@ -152,7 +167,7 @@ function BrowseContent() {
             )}
             {search && (
               <button
-                onClick={() => { setSearch(""); updateURL("", activeCategory, activeTag); }}
+                onClick={() => { setSearch(""); updateURL("", activeCategory, activeTag, activeCollectionId); }}
                 className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground/60 transition-colors hover:text-foreground"
               >
                 <X className="h-3.5 w-3.5" />
@@ -184,7 +199,7 @@ function BrowseContent() {
             {visibleTags.map((tag) => (
               <button
                 key={tag}
-                onClick={() => { const next = activeTag === tag ? null : tag; setActiveTag(next); updateURL(search, activeCategory, next); }}
+                onClick={() => { const next = activeTag === tag ? null : tag; setActiveTag(next); updateURL(search, activeCategory, next, activeCollectionId); }}
                 className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-medium transition-all sm:text-[11px] ${
                   activeTag === tag
                     ? "bg-[color:var(--brand-soft)] text-foreground"
@@ -206,18 +221,21 @@ function BrowseContent() {
         )}
 
         {/* Collections */}
-        {collections.length > 0 && activeCollection.length === 0 && !search && activeCategory === "All" && !activeTag && (
+        {collections.length > 0 && !activeCollection && !search && activeCategory === "All" && !activeTag && (
           <div className="mt-6 sm:mt-8">
-            <p className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground sm:text-xs">
-              Curated Collections
+            <p className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground sm:text-xs">
+              Curated for Walrus builders
+            </p>
+            <p className="mb-3 text-xs text-muted-foreground sm:text-sm">
+              Skill bundles to help you deploy, configure, and ship on Walrus + Sui.
             </p>
             <ScrollBleed className="flex gap-3">
               {collections.map((c) => (
                 <CollectionCard
                   key={c.id}
                   collection={c}
-                  onSelect={setActiveCollection}
-                  active={false}
+                  onSelect={handleCollectionSelect}
+                  active={activeCollectionId === c.id}
                 />
               ))}
             </ScrollBleed>
@@ -225,14 +243,20 @@ function BrowseContent() {
         )}
 
         {/* Active collection banner */}
-        {activeCollection.length > 0 && (
-          <div className="mt-6 flex items-center justify-between rounded-xl border border-[color:var(--brand-border)] bg-white/60 px-4 py-3 backdrop-blur sm:mt-8">
+        {activeCollection && (
+          <div className="mt-6 flex items-center justify-between gap-3 rounded-xl border border-[color:var(--brand-border)] bg-white/60 px-4 py-3 backdrop-blur sm:mt-8">
             <p className="text-sm font-medium text-foreground">
-              Showing {activeCollection.length} skills from collection
+              Showing{" "}
+              <span className="font-semibold">{activeCollection.name}</span>
+              {" "}({activeCollection.skills.length}{" "}
+              {activeCollection.skills.length === 1 ? "skill" : "skills"})
             </p>
             <button
-              onClick={() => setActiveCollection([])}
-              className="text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground"
+              onClick={() => {
+                setActiveCollectionId(null);
+                updateURL(search, activeCategory, activeTag, null);
+              }}
+              className="shrink-0 text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground"
             >
               Clear
             </button>
@@ -293,7 +317,7 @@ function BrowseContent() {
                 <p className="mt-2 text-xs text-muted-foreground">
                   Did you mean{" "}
                   <button
-                    onClick={() => { setSearch(suggestion); updateURL(suggestion, activeCategory, activeTag); }}
+                    onClick={() => { setSearch(suggestion); updateURL(suggestion, activeCategory, activeTag, activeCollectionId); }}
                     className="font-medium text-foreground hover:text-foreground"
                   >
                     {suggestion}
@@ -302,9 +326,15 @@ function BrowseContent() {
                 </p>
               ) : null;
             })()}
-            {(search || activeTag || activeCategory !== "All") ? (
+            {(search || activeTag || activeCategory !== "All" || activeCollection) ? (
               <button
-                onClick={() => { setSearch(""); setActiveTag(null); setActiveCategory("All"); updateURL("", "All", null); }}
+                onClick={() => {
+                  setSearch("");
+                  setActiveTag(null);
+                  setActiveCategory("All");
+                  setActiveCollectionId(null);
+                  updateURL("", "All", null, null);
+                }}
                 className="mt-4 inline-flex h-8 items-center rounded-full bg-primary px-4 text-xs font-semibold text-primary-foreground transition-all hover:bg-primary/90"
               >
                 Clear filters
