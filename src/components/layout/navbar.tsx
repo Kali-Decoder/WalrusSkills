@@ -38,7 +38,7 @@ export function Navbar() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-0.5 md:flex">
+        <nav className="hidden items-center gap-0.5 lg:flex">
           {navLinks.map((link) => (
             <Link key={link.href} href={link.href}>
               <Button
@@ -59,7 +59,7 @@ export function Navbar() {
 
         {/* Mobile nav */}
         <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger asChild className="md:hidden">
+          <SheetTrigger asChild className="lg:hidden">
             <Button
               variant="ghost"
               size="icon"

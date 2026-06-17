@@ -178,7 +178,7 @@ export function TemplateCard({ template }: { template: TemplateProfile }) {
       {expanded && (
         <div className="border-t border-[color:var(--brand-border)] p-4 sm:p-5">
           <div className="max-h-80 overflow-auto rounded-xl border border-[color:var(--brand-border)] bg-white/55 p-4 backdrop-blur sm:p-5">
-            <div className="prose prose-sm prose-gray max-w-none overflow-hidden prose-headings:text-foreground prose-p:text-muted-foreground prose-li:text-muted-foreground prose-strong:text-foreground prose-code:rounded prose-code:bg-[color:var(--brand-soft)] prose-code:px-1.5 prose-code:py-0.5 prose-code:text-foreground prose-code:font-semibold prose-code:before:content-none prose-code:after:content-none prose-pre:overflow-x-auto prose-pre:bg-white/70 prose-pre:border prose-pre:border-[color:var(--brand-border)]">
+            <div className="prose-content max-h-80 overflow-auto rounded-xl border border-[color:var(--brand-border)] bg-white/55 p-4 backdrop-blur sm:p-5">
               <Markdown remarkPlugins={[remarkGfm]}>{template.body}</Markdown>
             </div>
           </div>

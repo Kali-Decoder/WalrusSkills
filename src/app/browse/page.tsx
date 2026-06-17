@@ -161,7 +161,7 @@ function BrowseContent() {
               className="h-9 w-full rounded-lg border border-[color:var(--brand-border)] bg-white/70 pl-9 pr-14 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none backdrop-blur transition-all focus:bg-white focus:border-[color:var(--brand-border)] focus:ring-2 focus:ring-[color:var(--brand-soft)]"
             />
             {!search && (
-              <kbd className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 rounded border border-[color:var(--brand-border)] bg-white/60 px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+              <kbd className="pointer-events-none absolute right-2.5 top-1/2 hidden -translate-y-1/2 rounded border border-[color:var(--brand-border)] bg-white/60 px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground sm:inline">
                 /
               </kbd>
             )}
@@ -244,8 +244,8 @@ function BrowseContent() {
 
         {/* Active collection banner */}
         {activeCollection && (
-          <div className="mt-6 flex items-center justify-between gap-3 rounded-xl border border-[color:var(--brand-border)] bg-white/60 px-4 py-3 backdrop-blur sm:mt-8">
-            <p className="text-sm font-medium text-foreground">
+          <div className="mt-6 flex flex-col gap-3 rounded-xl border border-[color:var(--brand-border)] bg-white/60 px-4 py-3 backdrop-blur sm:mt-8 sm:flex-row sm:items-center sm:justify-between">
+            <p className="min-w-0 text-sm font-medium text-foreground">
               Showing{" "}
               <span className="font-semibold">{activeCollection.name}</span>
               {" "}({activeCollection.skills.length}{" "}

@@ -34,7 +34,7 @@ ${profile.meta.description}
           Back to Templates
         </Link>
 
-        <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
+        <div className="detail-layout">
           <div className="min-w-0 flex-1">
             <h1 className="text-2xl font-bold tracking-[-0.02em] text-foreground sm:text-3xl">
               {profile.meta.displayName}
@@ -57,18 +57,18 @@ ${profile.meta.description}
               <div className="flex items-center gap-2 border-b border-[color:var(--brand-border)] bg-white/60 px-4 py-2.5">
                 <FileText className="h-4 w-4 text-[color:var(--brand)]" />
                 <span className="text-sm font-medium text-foreground">SKILL.md</span>
-                <span className="ml-auto text-[10px] text-muted-foreground">Template Instructions</span>
+                <span className="ml-auto hidden text-[10px] text-muted-foreground sm:inline">Template Instructions</span>
               </div>
               <div className="p-5 sm:p-6">
-                <div className="prose prose-sm prose-gray max-w-none overflow-hidden prose-headings:text-foreground prose-p:text-muted-foreground prose-li:text-muted-foreground prose-strong:text-foreground prose-code:rounded prose-code:bg-[color:var(--brand-soft)] prose-code:px-1.5 prose-code:py-0.5 prose-code:text-foreground prose-code:font-semibold prose-code:before:content-none prose-code:after:content-none prose-pre:overflow-x-auto prose-pre:bg-white/70 prose-pre:border prose-pre:border-[color:var(--brand-border)]">
+                <div className="prose-content">
                   <Markdown remarkPlugins={[remarkGfm]}>{profile.body}</Markdown>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="w-full shrink-0 lg:w-72">
-            <div className="sticky top-[calc(var(--header-height)+1.5rem)] space-y-4">
+          <div className="detail-sidebar">
+            <div className="detail-sidebar-inner">
               <button
                 onClick={handleDownload}
                 className="flex h-11 w-full items-center justify-center gap-2 rounded-full bg-primary text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-lg"
@@ -86,13 +86,13 @@ ${profile.meta.description}
 
               <div className="surface p-4">
                 <dl className="space-y-3 text-sm">
-                  <div className="flex justify-between gap-4">
-                    <dt className="text-muted-foreground">Category</dt>
-                    <dd className="font-medium text-foreground">{profile.meta.category}</dd>
+                  <div className="meta-row">
+                    <dt>Category</dt>
+                    <dd>{profile.meta.category}</dd>
                   </div>
-                  <div className="flex justify-between gap-4">
-                    <dt className="text-muted-foreground">Difficulty</dt>
-                    <dd className={`font-medium ${diffConfig.text}`}>{diffConfig.label}</dd>
+                  <div className="meta-row">
+                    <dt>Difficulty</dt>
+                    <dd className={diffConfig.text}>{diffConfig.label}</dd>
                   </div>
                 </dl>
 

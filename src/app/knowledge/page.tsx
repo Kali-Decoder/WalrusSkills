@@ -104,7 +104,7 @@ function KnowledgeContent() {
             className="h-9 w-full rounded-lg border border-[color:var(--brand-border)] bg-white/70 pl-9 pr-14 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none backdrop-blur transition-all focus:bg-white focus:border-[color:var(--brand-border)] focus:ring-2 focus:ring-[color:var(--brand-soft)]"
           />
           {!search && (
-            <kbd className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 rounded border border-[color:var(--brand-border)] bg-[color:var(--brand-soft)] px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+            <kbd className="pointer-events-none absolute right-2.5 top-1/2 hidden -translate-y-1/2 rounded border border-[color:var(--brand-border)] bg-[color:var(--brand-soft)] px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground sm:inline">
               /
             </kbd>
           )}
@@ -128,13 +128,13 @@ function KnowledgeContent() {
                 <button
                   key={cat}
                   onClick={() => { setActiveCategory(cat); updateURL(search, cat); }}
-                  className="surface surface-hover flex items-center gap-3 p-4 text-left"
+                  className="surface surface-hover flex min-w-0 items-center gap-3 p-4 text-left"
                 >
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[color:var(--brand-soft)] text-foreground">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <div>
-                    <p className="text-sm font-semibold text-foreground">{cat}</p>
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold leading-snug text-foreground">{cat}</p>
                     <p className="text-[11px] text-muted-foreground">{count} {count === 1 ? "guide" : "guides"}</p>
                   </div>
                 </button>

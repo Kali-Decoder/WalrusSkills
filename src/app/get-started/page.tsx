@@ -159,7 +159,7 @@ export default function GetStartedPage() {
 
           {/* Right: preview */}
           <aside className="w-full shrink-0 lg:w-[360px]">
-            <div className="surface sticky top-[calc(var(--header-height)+1.5rem)] p-5">
+            <div className="detail-sidebar-inner surface p-5 lg:sticky lg:top-[calc(var(--header-height)+1.5rem)]">
               <div className="flex items-center gap-2">
                 <Sparkles className="h-4 w-4 text-foreground/80" />
                 <p className="text-sm font-semibold text-foreground">Your setup</p>

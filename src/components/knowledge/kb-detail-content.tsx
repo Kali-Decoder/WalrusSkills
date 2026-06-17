@@ -47,10 +47,10 @@ export function KBDetailContent({ kb }: { kb: KnowledgeBase }) {
           Back to Knowledge Base
         </Link>
 
-        <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
+        <div className="detail-layout">
           {/* Main content */}
           <div className="min-w-0 flex-1">
-            <div className="flex items-center gap-2.5 mb-3">
+            <div className="flex flex-wrap items-center gap-2.5 mb-3">
               <span className="rounded-md bg-[color:var(--brand-soft)] px-2.5 py-1 text-xs font-semibold text-foreground">
                 {kb.meta.category}
               </span>
@@ -74,7 +74,7 @@ export function KBDetailContent({ kb }: { kb: KnowledgeBase }) {
                 <span className="text-sm font-medium text-foreground">KB.md</span>
               </div>
               <div className="p-5 sm:p-6">
-                <div className="prose prose-sm prose-gray max-w-none overflow-hidden prose-headings:text-foreground prose-p:text-muted-foreground prose-li:text-muted-foreground prose-strong:text-foreground prose-code:rounded prose-code:bg-[color:var(--brand-soft)] prose-code:px-1.5 prose-code:py-0.5 prose-code:text-foreground prose-code:font-semibold prose-code:before:content-none prose-code:after:content-none prose-pre:overflow-x-auto prose-pre:bg-white/70 prose-pre:border prose-pre:border-[color:var(--brand-border)] prose-th:text-foreground prose-td:text-muted-foreground">
+                <div className="prose-content">
                   <Markdown remarkPlugins={[remarkGfm]}>{kb.body}</Markdown>
                 </div>
               </div>
@@ -82,8 +82,8 @@ export function KBDetailContent({ kb }: { kb: KnowledgeBase }) {
           </div>
 
           {/* Sidebar */}
-          <div className="w-full shrink-0 lg:w-72">
-            <div className="sticky top-[calc(var(--header-height)+1.5rem)] space-y-4">
+          <div className="detail-sidebar">
+            <div className="detail-sidebar-inner">
               {/* Agent URL — primary action */}
               <div className="surface p-4">
                 <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-foreground/70">
@@ -125,18 +125,18 @@ export function KBDetailContent({ kb }: { kb: KnowledgeBase }) {
               <div className="surface p-4">
                 <dl className="space-y-3 text-sm">
                   {kb.meta.author && (
-                    <div className="flex justify-between">
-                      <dt className="text-muted-foreground">Author</dt>
-                      <dd className="font-medium text-foreground">{kb.meta.author}</dd>
+                    <div className="meta-row">
+                      <dt>Author</dt>
+                      <dd>{kb.meta.author}</dd>
                     </div>
                   )}
-                  <div className="flex justify-between">
-                    <dt className="text-muted-foreground">Category</dt>
-                    <dd className="font-medium text-foreground">{kb.meta.category}</dd>
+                  <div className="meta-row">
+                    <dt>Category</dt>
+                    <dd>{kb.meta.category}</dd>
                   </div>
-                  <div className="flex justify-between">
-                    <dt className="text-muted-foreground">Version</dt>
-                    <dd className="font-medium text-foreground">{kb.meta.version}</dd>
+                  <div className="meta-row">
+                    <dt>Version</dt>
+                    <dd>{kb.meta.version}</dd>
                   </div>
                 </dl>
 

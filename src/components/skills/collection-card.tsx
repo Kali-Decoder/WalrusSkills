@@ -25,7 +25,7 @@ export function CollectionCard({
   return (
     <button
       onClick={() => onSelect(collection)}
-      className={`surface surface-hover flex w-[min(100%,17rem)] shrink-0 flex-col gap-3 px-4 py-3.5 text-left sm:w-72 sm:px-5 sm:py-4 ${
+      className={`surface surface-hover flex w-[85vw] max-w-[17rem] shrink-0 flex-col gap-3 px-4 py-3.5 text-left sm:w-72 sm:max-w-none sm:px-5 sm:py-4 ${
         active ? "ring-1 ring-foreground/15" : ""
       }`}
       type="button"

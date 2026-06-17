@@ -155,8 +155,13 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    overflow-x: hidden;
+  }
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    overflow-x: hidden;
+    max-width: 100%;
     background-image: linear-gradient(to bottom, var(--bg-grad-top), var(--bg-grad-bottom));
   }
 }
@@ -186,6 +191,37 @@
   .landing-page :is(h1, h2, h3) {
     font-family: var(--font-pixel), ui-sans-serif, system-ui, sans-serif;
     letter-spacing: 0.01em;
+  }
+  .prose-content {
+    @apply prose prose-sm prose-gray max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-li:text-muted-foreground prose-strong:text-foreground prose-code:rounded prose-code:bg-[color:var(--brand-soft)] prose-code:px-1.5 prose-code:py-0.5 prose-code:text-foreground prose-code:font-semibold prose-code:before:content-none prose-code:after:content-none prose-pre:overflow-x-auto prose-pre:bg-white/70 prose-pre:border prose-pre:border-[color:var(--brand-border)] prose-th:text-foreground prose-td:text-muted-foreground;
+  }
+  .prose-content :where(table) {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .detail-layout {
+    @apply flex flex-col-reverse gap-8 lg:flex-row lg:gap-12;
+  }
+  .detail-sidebar {
+    @apply w-full shrink-0 lg:w-72;
+  }
+  .detail-sidebar-inner {
+    @apply space-y-4 lg:sticky lg:top-[calc(var(--header-height)+1.5rem)];
+  }
+  .meta-row {
+    @apply flex items-start justify-between gap-3 text-sm;
+  }
+  .meta-row dt {
+    @apply shrink-0 text-muted-foreground;
+  }
+  .meta-row dd {
+    @apply text-right font-medium text-foreground break-words;
+  }
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
   }
 }
 

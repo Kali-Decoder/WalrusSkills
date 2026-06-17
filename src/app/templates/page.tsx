@@ -32,7 +32,7 @@ export default function TemplatesPage() {
           </p>
         )}
 
-        <div className="mt-6 grid items-stretch gap-4 sm:mt-8 md:grid-cols-2 xl:grid-cols-2">
+        <div className="mt-6 grid items-stretch gap-4 sm:mt-8 md:grid-cols-2">
           {loading
             ? Array.from({ length: 4 }).map((_, i) => (
                 <div key={i} className="surface flex h-full min-h-[280px] flex-col p-0">

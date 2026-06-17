@@ -53,8 +53,8 @@ export default function TutorialPage() {
             <span className="hidden sm:inline">Back</span>
           </Link>
           <div className="h-4 w-px shrink-0 bg-[color:var(--brand-border)]" />
-          <div className="min-w-0 flex-1 overflow-x-auto">
-            <div className="flex gap-1 pl-3">
+          <div className="min-w-0 flex-1 overflow-x-auto scrollbar-thin">
+            <div className="flex w-max min-w-full gap-1 pl-2 sm:pl-3">
             {SECTIONS.map((s) => (
               <a
                 key={s.id}
@@ -89,7 +89,7 @@ export default function TutorialPage() {
 
             <section id="marketplace" className="scroll-mt-[calc(var(--header-height)+4.5rem)] mt-6 sm:mt-8">
               <SectionHeader title="How the marketplace works" />
-              <div className="pl-[34px]">
+              <div className="pl-0 sm:pl-[34px]">
                 <p className="mt-2 text-sm text-muted-foreground sm:text-[0.95rem]">
                   Walrus Skills Marketplace is file-based: skills, templates, and guides are packaged as folders/markdown that you can download and
                   drop into your repo. The goal is to make agent onboarding fast and repeatable.
@@ -113,7 +113,7 @@ export default function TutorialPage() {
 
             <section id="skills" className="scroll-mt-[calc(var(--header-height)+4.5rem)] mt-8 sm:mt-10">
               <SectionHeader title="Install a skill" />
-              <div className="pl-[34px]">
+              <div className="pl-0 sm:pl-[34px]">
                 <p className="mt-2 text-sm text-muted-foreground sm:text-[0.95rem]">
                   Open a skill, review the preview, then download it and place the folder into your agent skills directory.
                 </p>
@@ -135,7 +135,7 @@ cp -r <skill-slug>/ .claude/skills/`}</CodeBlock>
 
             <section id="templates" className="scroll-mt-[calc(var(--header-height)+4.5rem)] mt-8 sm:mt-10">
               <SectionHeader title="Start from a template" />
-              <div className="pl-[34px]">
+              <div className="pl-0 sm:pl-[34px]">
                 <p className="mt-2 text-sm text-muted-foreground sm:text-[0.95rem]">
                   Templates are “starter app” skills. Use them when you want a ready-to-extend baseline for a Walrus/Sui app.
                 </p>
@@ -159,7 +159,7 @@ cp -r <skill-slug>/ .claude/skills/`}</CodeBlock>
 
             <section id="knowledge" className="scroll-mt-[calc(var(--header-height)+4.5rem)] mt-8 sm:mt-10">
               <SectionHeader title="Use Knowledge Base with your agent" />
-              <div className="pl-[34px]">
+              <div className="pl-0 sm:pl-[34px]">
                 <p className="mt-2 text-sm text-muted-foreground sm:text-[0.95rem]">
                   Each Knowledge Base page provides an <strong className="text-foreground">Agent Fetch URL</strong>. Copy it and share it with your agent so it can
                   pull the guide on demand.
@@ -171,7 +171,7 @@ curl -o walrus-guide.md https://<your-domain>/knowledge/<slug>/raw`}</CodeBlock>
 
             <section id="contribute" className="scroll-mt-[calc(var(--header-height)+4.5rem)] mt-8 sm:mt-10">
               <SectionHeader title="Contribute new skills" />
-              <div className="pl-[34px]">
+              <div className="pl-0 sm:pl-[34px]">
                 <p className="mt-2 text-sm text-muted-foreground sm:text-[0.95rem]">
                   Marketplace content is stored under <Code>src/data/</Code>. Add a folder and it shows up in the UI.
                 </p>

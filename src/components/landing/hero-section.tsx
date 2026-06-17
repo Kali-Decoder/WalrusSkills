@@ -48,7 +48,7 @@ export function HeroSection() {
             starting from scratch.
           </p>
 
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-2 sm:mt-8">
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-2 px-1 sm:mt-8">
             {PILLARS.map((item) => (
               <span key={item} className="chip sm:text-xs">
                 {item}
