@@ -21,6 +21,17 @@ export interface SkillProfile {
 
 const SKILLS_DIR = path.join(process.cwd(), "src/data/skills");
 
+function readSkillMd(dirName: string): string | null {
+  const candidates = ["SKILL.md", "Skill.md", "skill.md"];
+  for (const fileName of candidates) {
+    const skillPath = path.join(SKILLS_DIR, dirName, fileName);
+    if (fs.existsSync(skillPath)) {
+      return fs.readFileSync(skillPath, "utf-8");
+    }
+  }
+  return null;
+}
+
 function buildProfile(slug: string, skillMd: string, readmeMd: string, meta: Record<string, unknown>, body: string): SkillProfile {
   return {
     slug,
@@ -48,12 +59,11 @@ export function getSkillProfiles(): SkillProfile[] {
 
   return folders
     .map((folder) => {
-      const skillPath = path.join(SKILLS_DIR, folder.name, "SKILL.md");
+      const skillMd = readSkillMd(folder.name);
       const readmePath = path.join(SKILLS_DIR, folder.name, "README.md");
 
-      if (!fs.existsSync(skillPath)) return null;
+      if (!skillMd) return null;
 
-      const skillMd = fs.readFileSync(skillPath, "utf-8");
       const readmeMd = fs.existsSync(readmePath)
         ? fs.readFileSync(readmePath, "utf-8")
         : "";
@@ -65,11 +75,10 @@ export function getSkillProfiles(): SkillProfile[] {
 }
 
 export function getSkillProfile(slug: string): SkillProfile | null {
-  const skillPath = path.join(SKILLS_DIR, slug, "SKILL.md");
-  if (!fs.existsSync(skillPath)) return null;
+  const skillMd = readSkillMd(slug);
+  if (!skillMd) return null;
 
   const readmePath = path.join(SKILLS_DIR, slug, "README.md");
-  const skillMd = fs.readFileSync(skillPath, "utf-8");
   const readmeMd = fs.existsSync(readmePath)
     ? fs.readFileSync(readmePath, "utf-8")
     : "";

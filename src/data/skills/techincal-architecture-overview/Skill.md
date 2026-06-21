@@ -1,12 +1,11 @@
-````md id="walrus-sites-technical-overview"
 ---
-name: walrus-sites-technical-overview
+name: Walrus Sites Technical Overview
 description: Understand the architecture and lifecycle of Walrus Sites including quilts, Sui onchain indexing, portals, domain isolation, resource resolution, and decentralized static website hosting on Walrus + Sui.
 category: Storage Infrastructure
-topic: walrus-sites-architecture
+difficulty: intermediate
 author: Kali-Decoder
 version: "1.0.0"
-tags:
+skills:
   - Walrus
   - Sui
   - Walrus Sites
@@ -23,6 +22,7 @@ tags:
 ## Scope
 
 Use this skill for understanding Walrus Sites architecture and infrastructure:
+
 - Walrus Sites internals
 - Quilt-based storage architecture
 - Sui site object indexing
@@ -38,15 +38,15 @@ Use this skill for understanding Walrus Sites architecture and infrastructure:
 
 ---
 
-# What is a Walrus Site
+## What is a Walrus Site
 
 A Walrus Site is a:
+
 - fully decentralized static website
-- stored across:
-  - Sui
-  - Walrus
+- stored across Sui and Walrus
 
 with:
+
 - no traditional origin server
 - onchain ownership
 - decentralized file storage
@@ -54,7 +54,7 @@ with:
 
 ---
 
-# Core Architecture
+## Core Architecture
 
 ```txt
 Browser
@@ -70,11 +70,12 @@ Website Resource Bytes
 
 ---
 
-# System Components
+## System Components
 
-## Sui
+### Sui
 
 Stores:
+
 - site ownership
 - resource indexes
 - routes
@@ -82,11 +83,10 @@ Stores:
 - headers
 - dynamic fields
 
----
-
-## Walrus
+### Walrus
 
 Stores:
+
 - HTML
 - CSS
 - JavaScript
@@ -95,15 +95,15 @@ Stores:
 - static assets
 
 as:
+
 - blobs
 - quilts
 - quilt patches
 
----
-
-## Portal
+### Portal
 
 Acts as:
+
 - HTTP gateway
 - Sui resolver
 - Walrus fetcher
@@ -111,7 +111,7 @@ Acts as:
 
 ---
 
-# Site Publishing Flow
+## Site Publishing Flow
 
 When running:
 
@@ -123,19 +123,21 @@ the process happens in 2 phases.
 
 ---
 
-# Phase 1 — Upload to Walrus
+## Phase 1 — Upload to Walrus
 
 All website files are:
+
 - bundled
 - optimized
 - uploaded
 
 as:
+
 - a Walrus quilt
 
 ---
 
-# Quilt Architecture
+## Quilt Architecture
 
 ```txt
 Website Files
@@ -147,30 +149,23 @@ Walrus Quilt
 QuiltPatchIDs
 ```
 
----
-
-# Quilt Benefits
+### Quilt Benefits
 
 - faster uploads
 - lower storage costs
 - optimized small-file storage
 - efficient retrieval
 
----
+### Quilt Tradeoff
 
-# Quilt Tradeoff
-
-Changing:
-- one file
-
-requires:
-- full quilt re-upload
+Changing one file requires a full quilt re-upload.
 
 ---
 
-# Phase 2 — Write Site Object to Sui
+## Phase 2 — Write Site Object to Sui
 
 A Sui object is created that stores:
+
 - routes
 - quilt patch IDs
 - metadata
@@ -179,7 +174,7 @@ A Sui object is created that stores:
 
 ---
 
-# Site Object Architecture
+## Site Object Architecture
 
 ```txt
 Sui Site Object
@@ -192,17 +187,12 @@ Sui Site Object
 
 ---
 
-# Ownership Rules
+## Ownership Rules
 
-The wallet signing:
-- deploy
-- update
-- destroy
-
-becomes:
-- site owner
+The wallet signing deploy, update, or destroy becomes the site owner.
 
 Only the owner can:
+
 - update the site
 - destroy the site
 - transfer ownership
@@ -210,7 +200,7 @@ Only the owner can:
 
 ---
 
-# Resource Resolution Flow
+## Resource Resolution Flow
 
 When a browser opens a Walrus Site:
 
@@ -228,93 +218,45 @@ HTTP Response
 
 ---
 
-# Portal Request Resolution
+## Portal Request Resolution
 
-## Step 1 — Identify Site
+### Step 1 — Identify Site
 
-Portal extracts:
-- subdomain
+Portal extracts the subdomain and resolves the Sui object ID using SuiNS or a Base36 object ID.
 
-and resolves:
-- Sui object ID
+### Step 2 — Lookup Resource
 
-using:
-- SuiNS
-or
-- Base36 object ID
+Portal reads dynamic fields, routes, and metadata from the Sui site object.
 
----
+### Step 3 — Fetch Content
 
-# Step 2 — Lookup Resource
+Portal requests a quilt patch from a Walrus aggregator. Only requested patches are reconstructed — the full quilt is not downloaded.
 
-Portal reads:
-- dynamic fields
-- routes
-- metadata
+### Step 4 — Return Response
 
-from:
-- Sui site object
+Portal sends resource bytes, HTTP headers, and metadata to the browser.
 
 ---
 
-# Step 3 — Fetch Content
+## Browser Resource Loading
 
-Portal requests:
-- quilt patch
-
-from:
-- Walrus aggregator
-
-Only requested patches are reconstructed.
-
-The full quilt is NOT downloaded.
+This repeats for CSS, JS, fonts, images, markdown, and additional assets.
 
 ---
 
-# Step 4 — Return Response
+## Domain Isolation
 
-Portal sends:
-- resource bytes
-- HTTP headers
-- metadata
+Walrus Sites use isolated subdomains to enforce browser same-origin security.
 
-to:
-- browser
-
----
-
-# Browser Resource Loading
-
-This repeats for:
-- CSS
-- JS
-- fonts
-- images
-- markdown
-- additional assets
-
----
-
-# Domain Isolation
-
-Walrus Sites use:
-- isolated subdomains
-
-to enforce:
-- browser same-origin security
-
----
-
-# Why Isolation Matters
+### Why Isolation Matters
 
 Without isolation:
+
 - sites could access cookies
 - wallet state leakage could occur
 - cross-site access risks appear
 
----
-
-# Isolation Architecture
+### Isolation Architecture
 
 ```txt
 site-a.wal.app
@@ -322,15 +264,13 @@ site-b.wal.app
 site-c.wal.app
 ```
 
-Each site has:
-- unique origin
-- unique browser sandbox
+Each site has a unique origin and unique browser sandbox.
 
 ---
 
-# Subdomain Generation
+## Subdomain Generation
 
-## Option 1 — SuiNS
+### Option 1 — SuiNS
 
 Example:
 
@@ -338,46 +278,27 @@ Example:
 https://flatland.wal.app
 ```
 
----
+### Option 2 — Base36 Object ID
 
-# Option 2 — Base36 Object ID
+Object IDs are Base36 encoded because hex exceeds subdomain limits and Base36 is case insensitive.
 
-Object IDs are:
-- Base36 encoded
-
-because:
-- hex exceeds subdomain limits
-- Base36 is case insensitive
-
----
-
-# Important Restriction
+### Important Restriction
 
 ```txt
 wal.app does not support Base36 domains
 ```
 
-Base36 access requires:
-- self-hosted portal
-or
-- local portal
+Base36 access requires a self-hosted portal or local portal.
 
 ---
 
-# Ownership Model
+## Ownership Model
 
-Walrus Sites are:
-- normal Sui objects
-
-This enables:
-- transfers
-- ownership delegation
-- destruction
-- SuiNS assignment
+Walrus Sites are normal Sui objects. This enables transfers, ownership delegation, destruction, and SuiNS assignment.
 
 ---
 
-# Site Updates
+## Site Updates
 
 Updating a site:
 
@@ -391,24 +312,11 @@ Sui Index Update
 Same Site Object ID
 ```
 
----
-
-# Important Update Rule
-
-The:
-- site object ID
-
-does NOT change during updates.
-
-This preserves:
-- bookmarks
-- SuiNS names
-- portal URLs
-- integrations
+The site object ID does not change during updates. This preserves bookmarks, SuiNS names, portal URLs, and integrations.
 
 ---
 
-# Example End-to-End Flow
+## Example End-to-End Flow
 
 ```txt
 Developer
@@ -426,9 +334,10 @@ Browser Access
 
 ---
 
-# Portal Responsibilities
+## Portal Responsibilities
 
 Portals handle:
+
 - DNS resolution
 - Sui object lookup
 - Walrus blob retrieval
@@ -438,9 +347,10 @@ Portals handle:
 
 ---
 
-# Walrus Aggregator Responsibilities
+## Walrus Aggregator Responsibilities
 
 Aggregators handle:
+
 - quilt reconstruction
 - blob retrieval
 - partial patch delivery
@@ -448,7 +358,7 @@ Aggregators handle:
 
 ---
 
-# Validation Checklist
+## Validation Checklist
 
 - site deployed successfully
 - quilt uploaded
@@ -463,53 +373,40 @@ Aggregators handle:
 
 ---
 
-# Common Fixes
+## Common Fixes
 
-## Site Not Loading
+### Site Not Loading
 
 Verify:
+
 - portal configuration
 - DNS records
 - Sui site object
 - Walrus quilt availability
 
----
-
-# Resource Missing
+### Resource Missing
 
 Verify:
+
 - route mapping
 - quilt patch existence
 - ws-resources.json
 
----
+### Base36 Domain Failure
 
-# Base36 Domain Failure
+Use a self-hosted portal because wal.app does not support Base36.
 
-Use:
-- self-hosted portal
+### Ownership Update Failure
 
-because:
-- wal.app does not support Base36
+Verify the wallet owns the site object.
 
----
+### Incorrect Content Type
 
-# Ownership Update Failure
-
-Verify:
-- wallet owns site object
+Verify response headers and lowercase `content-type`.
 
 ---
 
-# Incorrect Content Type
-
-Verify:
-- response headers
-- lowercase `content-type`
-
----
-
-# Recommended Architecture
+## Recommended Architecture
 
 - Use quilts for all site uploads
 - Keep routes deterministic
@@ -521,7 +418,7 @@ Verify:
 
 ---
 
-# Best Practices
+## Best Practices
 
 - Use decentralized static hosting
 - Preserve site object ownership
@@ -536,7 +433,7 @@ Verify:
 
 ---
 
-# Use Cases
+## Use Cases
 
 - Decentralized websites
 - AI-readable documentation
@@ -549,17 +446,6 @@ Verify:
 
 ---
 
-# Vision
+## Vision
 
-Walrus Sites transforms:
-- traditional static hosting
-
-into:
-- decentralized programmable web infrastructure
-
-powered by:
-- Sui ownership
-- Walrus storage
-- portal-based delivery
-- decentralized resource resolution
-````
+Walrus Sites transforms traditional static hosting into decentralized programmable web infrastructure powered by Sui ownership, Walrus storage, portal-based delivery, and decentralized resource resolution.

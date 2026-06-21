@@ -16,8 +16,8 @@ export default function Home() {
   return (
     <div className="landing-page">
       <section className="border-b border-[color:var(--brand-border)] bg-[color:var(--brand-wash)]">
-        <Container className="py-4 sm:py-6">
-          <BrandBanner priority className="rounded-xl sm:rounded-2xl" />
+        <Container className="py-3 sm:py-6">
+          <BrandBanner priority className="rounded-lg sm:rounded-2xl" />
         </Container>
       </section>
       <SupportedToolsBanner />

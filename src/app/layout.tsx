@@ -1,15 +1,22 @@
 import type { Metadata, Viewport } from "next";
-import { Pixelify_Sans } from "next/font/google";
+import { Montserrat, Orbitron } from "next/font/google";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
 
-const pixelify = Pixelify_Sans({
+const montserrat = Montserrat({
   subsets: ["latin"],
-  variable: "--font-pixelify",
+  variable: "--font-body",
   display: "swap",
+});
+
+const orbitron = Orbitron({
+  subsets: ["latin"],
+  variable: "--font-heading-face",
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -30,8 +37,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${pixelify.variable} font-sans antialiased`}>
+    <html lang="en" className={`${montserrat.variable} ${orbitron.variable}`}>
+      <body className="font-sans antialiased">
         <TooltipProvider>
           <div className="pointer-events-none fixed inset-0 -z-10">
             <div className="bg-grid bg-grid-fade absolute inset-0 opacity-30" />

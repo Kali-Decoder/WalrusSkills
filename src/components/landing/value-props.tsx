@@ -19,10 +19,10 @@ const CARDS = [
 
 export function ValueProps() {
   return (
-    <section className="safe-bottom bg-[color:var(--background)] py-12 sm:py-16">
+    <section className="safe-bottom bg-[color:var(--background)] py-10 sm:py-16">
       <Container>
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-balance text-2xl font-bold text-foreground sm:text-3xl">
+        <div className="mx-auto max-w-2xl px-1 text-center sm:px-0">
+          <h2 className="text-balance text-xl font-bold text-foreground sm:text-3xl">
             Your developer hub for Walrus on Sui.
           </h2>
           <p className="mt-3 text-pretty text-sm leading-[1.7] text-muted-foreground sm:text-base">
@@ -32,13 +32,13 @@ export function ValueProps() {
           </p>
         </div>
 
-        <div className="mt-10 grid gap-4 sm:mt-12 sm:grid-cols-3">
+        <div className="mt-8 grid gap-3 sm:mt-12 sm:grid-cols-3 sm:gap-4">
           {CARDS.map((c) => (
             <div
               key={c.title}
-              className="rounded-2xl border border-[color:var(--brand-border)] bg-white p-5 shadow-sm"
+              className="rounded-2xl border border-[color:var(--brand-border)] bg-white p-4 shadow-sm sm:p-5"
             >
-              <h3 className="text-sm font-semibold text-foreground">{c.title}</h3>
+              <h3 className="text-sm font-semibold text-foreground sm:text-base">{c.title}</h3>
               <p className="mt-2 text-sm leading-[1.7] text-muted-foreground">
                 {c.desc}
               </p>
@@ -46,11 +46,11 @@ export function ValueProps() {
           ))}
         </div>
 
-        <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Button asChild className="rounded-full">
+        <div className="mt-8 flex w-full flex-col items-stretch gap-3 sm:mt-10 sm:flex-row sm:items-center sm:justify-center">
+          <Button asChild className="w-full rounded-full sm:w-auto">
             <Link href="/browse">Explore Skills</Link>
           </Button>
-          <Button asChild variant="secondary" className="rounded-full">
+          <Button asChild variant="secondary" className="w-full rounded-full sm:w-auto">
             <Link href="/tutorial">Read the Guide</Link>
           </Button>
         </div>

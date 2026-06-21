@@ -22,9 +22,9 @@ export function SupportedToolsBanner() {
   const items = [...TOOLS, ...TOOLS];
 
   return (
-    <section className="border-b border-[color:var(--brand-border)] bg-[color:var(--brand-wash)] py-3 sm:py-4">
+    <section className="border-b border-[color:var(--brand-border)] bg-[color:var(--brand-wash)] py-2.5 sm:py-4">
       <Container>
-        <div className="surface overflow-hidden rounded-xl border-[color:var(--brand-border)] px-0 py-2 sm:rounded-2xl">
+        <div className="surface overflow-hidden rounded-lg border-[color:var(--brand-border)] px-0 py-1.5 sm:rounded-2xl sm:py-2">
           <div className="tool-marquee-track">
             {items.map((tool, index) => {
               const Icon = tool.icon;

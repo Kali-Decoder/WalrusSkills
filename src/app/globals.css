@@ -8,9 +8,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-  --font-pixel: var(--font-pixelify), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-heading-face), ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
   --color-sidebar-ring: var(--sidebar-ring);
@@ -165,6 +164,7 @@
   }
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    font-family: var(--font-sans);
     overflow-x: hidden;
     max-width: 100%;
     scrollbar-width: none;
@@ -184,7 +184,7 @@
     @apply border-b border-[color:var(--brand-border)] bg-white/60;
   }
   .chip {
-    @apply inline-flex items-center gap-1 rounded-full border border-[color:var(--brand-border)] bg-white/55 px-3 py-1 text-[11px] font-semibold text-foreground/80 backdrop-blur;
+    @apply inline-flex max-w-full flex-wrap items-center justify-center gap-1 rounded-full border border-[color:var(--brand-border)] bg-white/55 px-3 py-1 text-[10px] font-semibold text-foreground/80 backdrop-blur sm:text-[11px];
   }
   .scroll-bleed {
     @apply -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8;
@@ -195,9 +195,9 @@
   .safe-fixed-bottom {
     bottom: max(1.5rem, env(safe-area-inset-bottom));
   }
-  :is(h1, h2, h3) {
-    font-family: var(--font-pixel), ui-sans-serif, system-ui, sans-serif;
-    letter-spacing: 0.01em;
+  :is(h1, h2, h3, h4, h5, h6) {
+    font-family: var(--font-heading);
+    letter-spacing: 0.04em;
   }
   .prose-content {
     @apply prose prose-sm prose-gray max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-li:text-muted-foreground prose-strong:text-foreground prose-code:rounded prose-code:bg-[color:var(--brand-soft)] prose-code:px-1.5 prose-code:py-0.5 prose-code:text-foreground prose-code:font-semibold prose-code:before:content-none prose-code:after:content-none prose-pre:overflow-x-auto prose-pre:bg-white/70 prose-pre:border prose-pre:border-[color:var(--brand-border)] prose-th:text-foreground prose-td:text-muted-foreground;
@@ -348,12 +348,19 @@
   .tool-inline-item {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    font-size: 0.8rem;
+    gap: 0.35rem;
+    font-size: 0.72rem;
     font-weight: 600;
     letter-spacing: 0.01em;
     color: color-mix(in oklab, var(--foreground), white 15%);
     white-space: nowrap;
+  }
+
+  @media (min-width: 640px) {
+    .tool-inline-item {
+      gap: 0.4rem;
+      font-size: 0.8rem;
+    }
   }
 
   .tool-inline-item:not(:last-child)::after {

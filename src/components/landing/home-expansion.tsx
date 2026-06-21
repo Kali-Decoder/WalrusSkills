@@ -167,25 +167,25 @@ export function HomeExpansion({ stats }: HomeExpansionProps) {
 
   return (
     <>
-      <section className="border-y border-[color:var(--brand-border)] bg-[color:var(--brand-wash)] py-8 sm:py-10">
+      <section className="border-y border-[color:var(--brand-border)] bg-[color:var(--brand-wash)] py-6 sm:py-10">
         <Container>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-4">
             {statItems.map((item) => (
-              <div key={item.label} className="surface p-4 text-center">
-                <p className="text-xl font-bold text-foreground sm:text-2xl">
+              <div key={item.label} className="surface p-3 text-center sm:p-4">
+                <p className="text-lg font-bold text-foreground sm:text-2xl">
                   <CountUp value={item.value} />
                 </p>
-                <p className="mt-1 text-xs text-muted-foreground sm:text-sm">{item.label}</p>
+                <p className="mt-1 text-[10px] leading-snug text-muted-foreground sm:text-sm">{item.label}</p>
               </div>
             ))}
           </div>
         </Container>
       </section>
 
-      <section className="bg-[color:var(--background)] py-14 sm:py-20">
+      <section className="bg-[color:var(--background)] py-10 sm:py-20">
         <Container>
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-balance text-2xl font-bold text-foreground sm:text-3xl">
+            <h2 className="text-balance px-1 text-xl font-bold text-foreground sm:px-0 sm:text-3xl">
               Built for every builder journey
             </h2>
             <p className="mt-3 text-pretty text-sm leading-[1.7] text-muted-foreground sm:text-base">
@@ -205,10 +205,10 @@ export function HomeExpansion({ stats }: HomeExpansionProps) {
         </Container>
       </section>
 
-      <section className="border-y border-[color:var(--brand-border)] bg-[color:var(--brand-wash)] py-14 sm:py-20">
+      <section className="border-y border-[color:var(--brand-border)] bg-[color:var(--brand-wash)] py-10 sm:py-20">
         <Container>
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-balance text-2xl font-bold text-foreground sm:text-3xl">
+            <h2 className="text-balance px-1 text-xl font-bold text-foreground sm:px-0 sm:text-3xl">
               From discovery to production
             </h2>
             <p className="mt-3 text-sm leading-[1.7] text-muted-foreground sm:text-base">
@@ -230,10 +230,10 @@ export function HomeExpansion({ stats }: HomeExpansionProps) {
         </Container>
       </section>
 
-      <section className="bg-[color:var(--background)] py-14 sm:py-20">
+      <section className="bg-[color:var(--background)] py-10 sm:py-20">
         <Container>
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-balance text-2xl font-bold text-foreground sm:text-3xl">
+            <h2 className="text-balance px-1 text-xl font-bold text-foreground sm:px-0 sm:text-3xl">
               How to build an app with Walrus Skills
             </h2>
             <p className="mt-3 text-sm leading-[1.7] text-muted-foreground sm:text-base">
@@ -260,7 +260,7 @@ export function HomeExpansion({ stats }: HomeExpansionProps) {
         </Container>
       </section>
 
-      <section className="safe-bottom bg-[color:var(--background)] py-14 sm:py-20">
+      <section className="safe-bottom bg-[color:var(--background)] py-10 sm:py-20">
         <Container>
           <div className="mx-auto max-w-3xl">
             <div className="text-center">
@@ -274,30 +274,30 @@ export function HomeExpansion({ stats }: HomeExpansionProps) {
 
             <div className="mt-8 space-y-3 sm:mt-10">
               {FAQS.map((item) => (
-                <details key={item.q} className="surface group p-5">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-left marker:content-none">
-                    <h3 className="text-sm font-semibold text-foreground sm:text-base">{item.q}</h3>
-                    <span className="text-lg leading-none text-muted-foreground transition-transform duration-200 group-open:rotate-45">
+                <details key={item.q} className="surface group p-4 sm:p-5">
+                  <summary className="flex cursor-pointer list-none items-start justify-between gap-3 text-left marker:content-none">
+                    <h3 className="min-w-0 flex-1 text-sm font-semibold leading-snug text-foreground sm:text-base">{item.q}</h3>
+                    <span className="mt-0.5 shrink-0 text-lg leading-none text-muted-foreground transition-transform duration-200 group-open:rotate-45">
                       +
                     </span>
                   </summary>
-                  <p className="mt-3 text-sm leading-[1.7] text-muted-foreground">{item.a}</p>
+                  <p className="mt-3 text-sm leading-[1.75] text-muted-foreground">{item.a}</p>
                 </details>
               ))}
             </div>
 
-            <div className="surface mt-8 p-6 text-center sm:mt-10">
-              <h3 className="text-xl font-bold text-foreground sm:text-2xl">
+            <div className="surface mt-8 p-5 text-center sm:mt-10 sm:p-6">
+              <h3 className="text-lg font-bold text-foreground sm:text-2xl">
                 Ready to build with less friction?
               </h3>
-              <p className="mx-auto mt-3 max-w-xl text-sm leading-[1.7] text-muted-foreground sm:text-base">
+              <p className="mx-auto mt-3 max-w-xl text-sm leading-[1.75] text-muted-foreground sm:text-base">
                 Explore production-ready resources and start integrating immediately.
               </p>
-              <div className="mt-5 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <Button asChild className="rounded-full">
+              <div className="mt-5 flex w-full flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center">
+                <Button asChild className="w-full rounded-full sm:w-auto">
                   <Link href="/browse">Browse all skills</Link>
                 </Button>
-                <Button asChild variant="secondary" className="rounded-full">
+                <Button asChild variant="secondary" className="w-full rounded-full sm:w-auto">
                   <Link href="/templates">View templates</Link>
                 </Button>
               </div>

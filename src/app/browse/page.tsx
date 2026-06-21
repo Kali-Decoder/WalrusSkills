@@ -120,7 +120,7 @@ function BrowseContent() {
 
   return (
     <div className="relative">
-      <Container className="py-10 sm:py-16">
+      <Container className="safe-bottom py-8 sm:py-16">
         <PageHeader
           title="Skills Marketplace"
           description="Download a skill folder, drop it in your project, and start building."
